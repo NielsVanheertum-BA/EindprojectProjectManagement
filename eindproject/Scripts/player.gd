@@ -4,9 +4,17 @@ extends CharacterBody2D
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+func _process(delta: float) -> void:
+	if GlobalVariables.playerHealth == 0:
+		GlobalVariables.playerHealth = 100
+		print("You died")
+		animated_sprite.play("death")
+
 func _physics_process(delta: float) -> void:
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -32,10 +40,7 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("run")
 	else:
 		animated_sprite.play("jump")
-	
-	
-	
-	
+		
 	# Apply movement
 	if direction:
 		velocity.x = direction * SPEED

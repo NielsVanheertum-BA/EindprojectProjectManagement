@@ -597,14 +597,11 @@ sources/0 = SubResource("TileSetAtlasSource_wrm1d")
 [node name="Game" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(56, -124)
+position = Vector2(13, -113)
 scale = Vector2(1.7663158, 2.8125)
 texture = ExtResource("1_3dryh")
 
 [node name="Player" parent="." instance=ExtResource("1_ebmjs")]
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(28, -103)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ebmjs")
@@ -621,3 +618,9 @@ shape = SubResource("WorldBoundaryShape2D_3dryh")
 
 [node name="SmallBee" parent="." instance=ExtResource("5_wowpa")]
 position = Vector2(28, -138)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(16.000002, -118)
+rotation = -3.1415925
+scale = Vector2(1.1300658, -0.32000077)
+zoom = Vector2(1.5, 1.5)

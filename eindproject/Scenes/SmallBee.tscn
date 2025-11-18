@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://mvg554ffhqv8" path="res://Scripts/small_bee.gd" id="1_i4jjc"]
 [ext_resource type="Texture2D" uid="uid://dv8yo1dmppf5f" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Fly/Fly-Sheet.png" id="1_kyfcm"]
-[ext_resource type="PackedScene" uid="uid://cc28t4squowbb" path="res://Scenes/killzone.tscn" id="2_a4kq6"]
+[ext_resource type="Script" uid="uid://bk7kiy0ltdv64" path="res://Scenes/OnTouchSmallBee.gd" id="3_i4jjc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4kq6"]
 atlas = ExtResource("1_kyfcm")
@@ -40,8 +40,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_htpuf"]
-radius = 9.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_bxvg7"]
+radius = 7.0
 
 [node name="Small Bee" type="Node2D"]
 script = ExtResource("1_i4jjc")
@@ -53,12 +53,6 @@ animation = &"Fly"
 autoplay = "Fly"
 frame_progress = 0.49430043
 
-[node name="Killzone" parent="AnimatedSprite2D" instance=ExtResource("2_a4kq6")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/Killzone"]
-position = Vector2(0, -1)
-shape = SubResource("CircleShape2D_htpuf")
-
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(1, -32)
 target_position = Vector2(25, 0)
@@ -66,3 +60,18 @@ target_position = Vector2(25, 0)
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(1, -32)
 target_position = Vector2(-25, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("3_i4jjc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -32)
+shape = SubResource("CircleShape2D_bxvg7")
+
+[node name="Timer" type="Timer" parent="Hitbox"]
+one_shot = true
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="Hitbox" method="_on_body_entered"]
+[connection signal="timeout" from="Hitbox/Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Hitbox/Timer" to="Hitbox" method="_on_timer_timeout"]
