@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhxq6dv5suolq"]
+[gd_scene load_steps=10 format=3 uid="uid://bhxq6dv5suolq"]
 
 [ext_resource type="Texture2D" uid="uid://qk4fd0vgvqbu" path="res://Free Pixel Art plataformer painted style/PNG/Mountains/Background.png" id="1_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bvl2buybphbky" path="res://Scenes/player.tscn" id="1_ebmjs"]
 [ext_resource type="Texture2D" uid="uid://bhvrkj1m2p2hr" path="res://Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_qxrlw"]
+[ext_resource type="PackedScene" uid="uid://gl5js00cujr6" path="res://Scenes/playerHealthBar.tscn" id="3_i6g32"]
 [ext_resource type="PackedScene" uid="uid://cc28t4squowbb" path="res://Scenes/killzone.tscn" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://c0b5sb1xugin0" path="res://Scenes/SmallBee.tscn" id="5_wowpa"]
 
@@ -597,11 +598,18 @@ sources/0 = SubResource("TileSetAtlasSource_wrm1d")
 [node name="Game" type="Node2D"]
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(13, -113)
+position = Vector2(-76, -106)
 scale = Vector2(1.7663158, 2.8125)
 texture = ExtResource("1_3dryh")
 
 [node name="Player" parent="." instance=ExtResource("1_ebmjs")]
+
+[node name="PlayerHealthBar" parent="Player" instance=ExtResource("3_i6g32")]
+top_level = true
+offset_left = -344.0
+offset_top = -318.0
+offset_right = -224.0
+offset_bottom = -301.0
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ebmjs")

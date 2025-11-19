@@ -3,18 +3,18 @@ extends CharacterBody2D
 
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
-
+var is_dead = false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var player_health_bar: ProgressBar = $PlayerHealthBar
 
-func _process(delta: float) -> void:
-	if GlobalVariables.playerHealth == 0:
-		GlobalVariables.playerHealth = 100
-		print("You died")
-		animated_sprite.play("death")
+
+func _ready() -> void:
+	player_health_bar._init_health(GlobalVariables.playerCurrentHealth)
 
 func _physics_process(delta: float) -> void:
-	
+	if is_dead:
+		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -48,3 +48,25 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+func die():
+	if is_dead:
+		return
+	is_dead = true
+
+	Engine.time_scale = 0.5
+	set_physics_process(false)
+	animated_sprite.play("death")
+	await animated_sprite.animation_finished
+	GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
+	Engine.time_scale = 1
+	var tree := get_tree()
+	tree.call_deferred("change_scene_to_file", "res://Scenes/game.tscn")
+
+func _process(delta: float) -> void:
+	
+	if GlobalVariables.playerCurrentHealth == 0:
+		die()
+		player_health_bar.health = 0.0000001
+	else: 
+		player_health_bar.health = GlobalVariables.playerCurrentHealth
