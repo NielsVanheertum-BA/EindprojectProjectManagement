@@ -64,9 +64,10 @@ func die():
 	tree.call_deferred("change_scene_to_file", "res://Scenes/game.tscn")
 
 func _process(delta: float) -> void:
-	
-	if GlobalVariables.playerCurrentHealth == 0:
-		die()
-		player_health_bar.health = 0.0000001
-	else: 
-		player_health_bar.health = GlobalVariables.playerCurrentHealth
+	if GlobalVariables.playerCurrentHealth != GlobalVariables.playerPreviousHealth :
+		GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
+		if GlobalVariables.playerCurrentHealth <= 0:
+			die()
+			player_health_bar.health = 0.0000001
+		else: 
+			player_health_bar.health = GlobalVariables.playerCurrentHealth

@@ -10,13 +10,8 @@ func _set_health(new_health):
 	health = min(max_value, new_health)
 	value = health
 	
-	if health <= 0:
-		queue_free()
-	
 	if health < prev_health:
 		timer.start()
-	else:
-		player_damage_bar.value = health
 		
 func _init_health(_health):
 	health = _health 
