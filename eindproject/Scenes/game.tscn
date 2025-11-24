@@ -603,6 +603,7 @@ scale = Vector2(1.7663158, 2.8125)
 texture = ExtResource("1_3dryh")
 
 [node name="Player" parent="." instance=ExtResource("1_ebmjs")]
+position = Vector2(19, -20)
 
 [node name="PlayerHealthBar" parent="Player" instance=ExtResource("3_i6g32")]
 top_level = true
@@ -625,7 +626,7 @@ position = Vector2(18, 80)
 shape = SubResource("WorldBoundaryShape2D_3dryh")
 
 [node name="SmallBee" parent="." instance=ExtResource("5_wowpa")]
-position = Vector2(28, -138)
+position = Vector2(31, -115)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(16.000002, -118)

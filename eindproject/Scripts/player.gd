@@ -7,6 +7,8 @@ var is_dead = false
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_health_bar: ProgressBar = $PlayerHealthBar
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
 
 
 func _ready() -> void:
@@ -66,8 +68,25 @@ func die():
 func _process(delta: float) -> void:
 	if GlobalVariables.playerCurrentHealth != GlobalVariables.playerPreviousHealth :
 		GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
+		spawn_hit_effect(collision_shape.global_position)
 		if GlobalVariables.playerCurrentHealth <= 0:
 			die()
 			player_health_bar.health = 0.0000001
 		else: 
 			player_health_bar.health = GlobalVariables.playerCurrentHealth
+			
+func spawn_hit_effect(position: Vector2):
+	# Simpel particle effect met modulate
+	var effect = Sprite2D.new()
+	effect.texture = animated_sprite.sprite_frames.get_frame_texture("idle", 0)  # Gebruik een frame
+	effect.global_position = position
+	effect.modulate = Color(1, 0, 0, 0.7)  # Rood semi-transparant
+	effect.scale = Vector2(1, 1)
+	get_parent().add_child(effect)
+	
+	# Fade out en verwijder
+	var tween = create_tween()
+	tween.tween_property(effect, "modulate:a", 0.0, 0.3)
+	tween.tween_property(effect, "scale", Vector2(1.5, 1.5), 0.3)
+	tween.tween_callback(effect.queue_free)
+	print("💥 Hit effect spawned!")

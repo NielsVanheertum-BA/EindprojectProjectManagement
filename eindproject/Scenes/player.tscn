@@ -275,18 +275,18 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3smsa"]
-radius = 6.0
+radius = 8.0
 height = 46.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_cvnsp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -24)
+position = Vector2(0, -23)
 sprite_frames = SubResource("SpriteFrames_x3wgy")
-animation = &"death"
+animation = &"jump"
 autoplay = "idle"
-frame_progress = 0.045485914
+frame_progress = 0.0780879
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -23)
