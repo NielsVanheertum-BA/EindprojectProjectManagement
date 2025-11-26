@@ -590,7 +590,8 @@ texture = ExtResource("2_qxrlw")
 9:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 5.215904, 8, 5.2159033, 8.138825, 23.996946, -7.887108, 24.080853)
 
 [sub_resource type="TileSet" id="TileSet_ebmjs"]
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 4
+physics_layer_0/collision_mask = 3
 sources/0 = SubResource("TileSetAtlasSource_wrm1d")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3dryh"]

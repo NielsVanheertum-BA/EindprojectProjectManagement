@@ -56,10 +56,12 @@ frame_progress = 0.49430043
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(1, -32)
 target_position = Vector2(25, 0)
+collision_mask = 4
 
 [node name="RayCastLeft" type="RayCast2D" parent="."]
 position = Vector2(1, -32)
 target_position = Vector2(-25, 0)
+collision_mask = 4
 
 [node name="Hitbox" type="Area2D" parent="."]
 script = ExtResource("3_i4jjc")
