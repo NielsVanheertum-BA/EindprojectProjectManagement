@@ -8,7 +8,7 @@ var direction = -1
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Beweeging bij
 func _process(delta):
 	if ray_cast_right.is_colliding():
 		direction = -1
