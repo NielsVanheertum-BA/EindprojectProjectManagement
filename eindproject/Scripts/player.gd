@@ -92,4 +92,4 @@ func spawn_hit_effect(position: Vector2):
 	tween.tween_property(effect, "modulate:a", 0.0, 0.3)
 	tween.tween_property(effect, "scale", Vector2(1.5, 1.5), 0.3)
 	tween.tween_callback(effect.queue_free)
-	print("Hit effect spawned!")
+	print("Hit effect werkt")

@@ -608,10 +608,10 @@ position = Vector2(19, -20)
 
 [node name="PlayerHealthBar" parent="Player" instance=ExtResource("3_i6g32")]
 top_level = true
-offset_left = -344.0
-offset_top = -318.0
-offset_right = -224.0
-offset_bottom = -301.0
+offset_left = -333.0
+offset_top = -317.0
+offset_right = -213.0
+offset_bottom = -300.0
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_ebmjs")
@@ -630,7 +630,7 @@ shape = SubResource("WorldBoundaryShape2D_3dryh")
 position = Vector2(31, -115)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(16.000002, -118)
+position = Vector2(34, -113)
 rotation = -3.1415925
 scale = Vector2(1.1300658, -0.32000077)
 zoom = Vector2(1.5, 1.5)

@@ -1,6 +1,6 @@
 extends Node
 
-var playerCurrentHealth = 100
-var playerPreviousHealth = playerCurrentHealth
 var playerMaxHealth = 100
+var playerCurrentHealth = playerMaxHealth
+var playerPreviousHealth = playerCurrentHealth
  

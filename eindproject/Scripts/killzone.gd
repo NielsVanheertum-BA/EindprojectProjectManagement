@@ -7,4 +7,5 @@ func _on_body_entered(body: Node2D) -> void:
 	timer.start()
 	
 func _on_timer_timeout() -> void:
-	get_tree().reload_current_scene()
+	var tree := get_tree()
+	tree.call_deferred("change_scene_to_file", "res://Scenes/game.tscn")
