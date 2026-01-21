@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://c0b5sb1xugin0"]
 
 [ext_resource type="Script" uid="uid://mvg554ffhqv8" path="res://Scripts/small_bee.gd" id="1_i4jjc"]
-[ext_resource type="Texture2D" uid="uid://dv8yo1dmppf5f" path="res://Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Fly/Fly-Sheet.png" id="1_kyfcm"]
+[ext_resource type="Texture2D" uid="uid://dv8yo1dmppf5f" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Fly/Fly-Sheet.png" id="1_kyfcm"]
 [ext_resource type="Script" uid="uid://bk7kiy0ltdv64" path="res://Scenes/OnTouchSmallBee.gd" id="3_i4jjc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4kq6"]

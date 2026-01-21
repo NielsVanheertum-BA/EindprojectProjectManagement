@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://dtiwstgtu7qi8"]
+
+[ext_resource type="Texture2D" uid="uid://qk4fd0vgvqbu" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Background.png" id="1_gqrn2"]
+[ext_resource type="Texture2D" uid="uid://qprh3l2f0e1p" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Layer 3 anim2.png" id="2_ovxwk"]
+[ext_resource type="Texture2D" uid="uid://c3gutl7kijejo" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Layer 5 anim2.png" id="4_gqrn2"]
+[ext_resource type="Texture2D" uid="uid://bx0jv3ssodc38" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Layer 6 anim2.png" id="4_s8i2e"]
+[ext_resource type="Texture2D" uid="uid://dqv6km0mc1nhf" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Layer 3 clound anim1.png" id="5_didtj"]
+
+[node name="Background" type="Node2D"]
+
+[node name="Backdrop" type="Parallax2D" parent="."]
+scroll_offset = Vector2(521, 290)
+
+[node name="Background" type="Sprite2D" parent="Backdrop"]
+position = Vector2(55, 30.000015)
+scale = Vector2(2.3526313, 3.5136719)
+texture = ExtResource("1_gqrn2")
+
+[node name="Tiny Mountains" type="Parallax2D" parent="."]
+repeat_size = Vector2(1000, 0)
+autoscroll = Vector2(20, 0)
+repeat_times = 4
+
+[node name="Layer3Anim2" type="Sprite2D" parent="Tiny Mountains"]
+position = Vector2(467.99994, 417.99997)
+scale = Vector2(1.1589473, 1.2890625)
+texture = ExtResource("2_ovxwk")
+
+[node name="Mountains" type="Parallax2D" parent="."]
+repeat_size = Vector2(600, 0)
+autoscroll = Vector2(27, 0)
+repeat_times = 3
+ignore_camera_scroll = true
+
+[node name="Layer6Anim2" type="Sprite2D" parent="Mountains"]
+position = Vector2(546.78125, 249.00002)
+scale = Vector2(2.1174343, 2.5488284)
+texture = ExtResource("4_s8i2e")
+
+[node name="Front End Clouds" type="Parallax2D" parent="."]
+repeat_size = Vector2(700, 0)
+autoscroll = Vector2(35, 0)
+repeat_times = 3
+
+[node name="Layer5Anim2" type="Sprite2D" parent="Front End Clouds"]
+position = Vector2(781.25, 304.75)
+scale = Vector2(1.2805263, 2.701172)
+texture = ExtResource("4_gqrn2")
+
+[node name="Layer5Anim3" type="Sprite2D" parent="Front End Clouds"]
+position = Vector2(573, 387)
+scale = Vector2(1.0526316, 1.7578125)
+texture = ExtResource("4_gqrn2")
+
+[node name="Layer3CloundAnim1" type="Sprite2D" parent="Front End Clouds"]
+position = Vector2(213, 560)
+scale = Vector2(1.7911111, 2.2828286)
+texture = ExtResource("5_didtj")
+
+[node name="Layer3CloundAnim2" type="Sprite2D" parent="Front End Clouds"]
+position = Vector2(487, 577)
+scale = Vector2(1.7911111, 2.2828286)
+texture = ExtResource("5_didtj")

@@ -65,7 +65,7 @@ func die():
 	GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
 	Engine.time_scale = 1
 	var tree := get_tree()
-	tree.call_deferred("change_scene_to_file", "res://Scenes/game.tscn")
+	tree.call_deferred("change_scene_to_file", "res://Scenes/MainMenu.tscn")
 
 # Check voor damage
 func _process(delta: float) -> void:

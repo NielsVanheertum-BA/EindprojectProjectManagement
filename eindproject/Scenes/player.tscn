@@ -1,10 +1,10 @@
 [gd_scene load_steps=43 format=3 uid="uid://bvl2buybphbky"]
 
 [ext_resource type="Script" uid="uid://b2mvxcadm8c2d" path="res://Scripts/player.gd" id="1_cvnsp"]
-[ext_resource type="Texture2D" uid="uid://b4y28ccvmlkvp" path="res://Legacy-Fantasy - High Forest 2.3/Character/Idle/Idle-Sheet.png" id="1_v0iea"]
-[ext_resource type="Texture2D" uid="uid://d02lwsfk7i6v2" path="res://Legacy-Fantasy - High Forest 2.3/Character/Dead/Dead-Sheet.png" id="2_fkybt"]
-[ext_resource type="Texture2D" uid="uid://ckkoy80xlr0mo" path="res://Legacy-Fantasy - High Forest 2.3/Character/Jumlp-All/Jump-All-Sheet.png" id="3_vgqql"]
-[ext_resource type="Texture2D" uid="uid://dnp1wvrs2qgdt" path="res://Legacy-Fantasy - High Forest 2.3/Character/Run/Run-Sheet.png" id="4_fkybt"]
+[ext_resource type="Texture2D" uid="uid://b4y28ccvmlkvp" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Character/Idle/Idle-Sheet.png" id="1_v0iea"]
+[ext_resource type="Texture2D" uid="uid://d02lwsfk7i6v2" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Character/Dead/Dead-Sheet.png" id="2_fkybt"]
+[ext_resource type="Texture2D" uid="uid://ckkoy80xlr0mo" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Character/Jumlp-All/Jump-All-Sheet.png" id="3_vgqql"]
+[ext_resource type="Texture2D" uid="uid://dnp1wvrs2qgdt" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Character/Run/Run-Sheet.png" id="4_fkybt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_83xs0"]
 atlas = ExtResource("2_fkybt")
