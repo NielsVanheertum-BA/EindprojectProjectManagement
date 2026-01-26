@@ -67,8 +67,9 @@ func die():
 	var tree := get_tree()
 	tree.call_deferred("change_scene_to_file", "res://Scenes/MainMenu.tscn")
 
-# Check voor damage
+
 func _process(delta: float) -> void:
+	# Check voor damage
 	if GlobalVariables.playerCurrentHealth != GlobalVariables.playerPreviousHealth :
 		GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
 		spawn_hit_effect(collision_shape.global_position)

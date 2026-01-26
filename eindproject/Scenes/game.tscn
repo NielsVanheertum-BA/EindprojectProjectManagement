@@ -1,11 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhxq6dv5suolq"]
+[gd_scene load_steps=12 format=3 uid="uid://bhxq6dv5suolq"]
 
 [ext_resource type="Texture2D" uid="uid://qk4fd0vgvqbu" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Background.png" id="1_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bvl2buybphbky" path="res://Scenes/player.tscn" id="1_ebmjs"]
+[ext_resource type="Script" uid="uid://cxh1dg4uq2kmg" path="res://Scenes/game.gd" id="1_v158k"]
 [ext_resource type="Texture2D" uid="uid://bhvrkj1m2p2hr" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://gl5js00cujr6" path="res://Scenes/playerHealthBar.tscn" id="3_i6g32"]
 [ext_resource type="PackedScene" uid="uid://cc28t4squowbb" path="res://Scenes/killzone.tscn" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://c0b5sb1xugin0" path="res://Scenes/SmallBee.tscn" id="5_wowpa"]
+[ext_resource type="PackedScene" uid="uid://cpe8lhhfbmrlt" path="res://Scenes/PauseMenu.tscn" id="7_1l0tm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
 texture = ExtResource("2_qxrlw")
@@ -597,6 +599,7 @@ sources/0 = SubResource("TileSetAtlasSource_wrm1d")
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3dryh"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_v158k")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(-76, -106)
@@ -634,3 +637,12 @@ position = Vector2(34, -113)
 rotation = -3.1415925
 scale = Vector2(1.1300658, -0.32000077)
 zoom = Vector2(1.5, 1.5)
+
+[node name="PauseMenu" parent="." instance=ExtResource("7_1l0tm")]
+offset_left = -41.0
+offset_top = -170.0
+offset_right = -41.0
+offset_bottom = -170.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
