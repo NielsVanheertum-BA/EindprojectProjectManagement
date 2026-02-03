@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://qk4fd0vgvqbu" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Background.png" id="1_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bvl2buybphbky" path="res://Scenes/player.tscn" id="1_ebmjs"]
-[ext_resource type="Script" uid="uid://cxh1dg4uq2kmg" path="res://Scenes/game.gd" id="1_v158k"]
+[ext_resource type="Script" uid="uid://cxh1dg4uq2kmg" path="res://Scripts/game.gd" id="1_v158k"]
 [ext_resource type="Texture2D" uid="uid://bhvrkj1m2p2hr" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Assets/Tiles.png" id="2_qxrlw"]
 [ext_resource type="PackedScene" uid="uid://gl5js00cujr6" path="res://Scenes/playerHealthBar.tscn" id="3_i6g32"]
 [ext_resource type="PackedScene" uid="uid://cc28t4squowbb" path="res://Scenes/killzone.tscn" id="3_wrm1d"]

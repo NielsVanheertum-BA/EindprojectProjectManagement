@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cpe8lhhfbmrlt"]
 
 [ext_resource type="FontFile" uid="uid://dq2hat0v08am4" path="res://Assets/Menu Assets/GrapeSoda.ttf" id="1_lj4oq"]
-[ext_resource type="Script" uid="uid://bgc2skyqxapv3" path="res://Scenes/pause_menu.gd" id="1_qwhev"]
+[ext_resource type="Script" uid="uid://bgc2skyqxapv3" path="res://Scripts/pause_menu.gd" id="1_qwhev"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwhev"]
 
