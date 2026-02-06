@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://gtrv8sncgha3"]
+[gd_scene load_steps=25 format=3 uid="uid://gtrv8sncgha3"]
 
 [ext_resource type="Script" uid="uid://dppg6rvsnysxl" path="res://Scripts/main_menu.gd" id="1_8saeu"]
 [ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Menu Assets/bitcre.ttf" id="1_tt5f1"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://fgqy3e7ouwll" path="res://Assets/Audio/ElevatorMusic.wav" id="5_df05h"]
 [ext_resource type="Script" uid="uid://bltwmlhbkw7p7" path="res://Scripts/music.gd" id="6_8um5k"]
 [ext_resource type="Script" uid="uid://w3hv0fn1hgu4" path="res://Scripts/screen_type.gd" id="7_xim88"]
+[ext_resource type="PackedScene" uid="uid://cjelunyxkemaa" path="res://Scenes/input_settings.tscn" id="8_koqhg"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_df05h"]
 
@@ -297,10 +298,10 @@ audio_bus_name = "SFX"
 
 [node name="SFXT" type="Label" parent="Options Panel"]
 layout_mode = 0
-offset_left = 82.375
-offset_top = 262.28125
-offset_right = 348.375
-offset_bottom = 313.28125
+offset_left = 69.375
+offset_top = 260.28125
+offset_right = 335.375
+offset_bottom = 311.28125
 theme_override_colors/font_color = Color(0.91764706, 0.9019608, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 13
@@ -310,10 +311,10 @@ text = "SFX Volume"
 
 [node name="ScreenType" type="CheckButton" parent="Options Panel"]
 layout_mode = 0
-offset_left = 81.375
-offset_top = 325.28125
-offset_right = 446.375
-offset_bottom = 384.28125
+offset_left = 66.375
+offset_top = 318.28125
+offset_right = 431.375
+offset_bottom = 377.28125
 theme_override_colors/font_color = Color(0.91764706, 0.9019608, 0, 1)
 theme_override_colors/font_focus_color = Color(0.91764706, 0.9019608, 0, 1)
 theme_override_colors/font_pressed_color = Color(0.91764706, 0.9019608, 0, 1)
@@ -337,6 +338,83 @@ button_pressed = true
 text = "Windowed"
 script = ExtResource("7_xim88")
 
+[node name="Change Keybinds" type="Button" parent="Options Panel"]
+layout_mode = 0
+offset_left = 197.375
+offset_top = 418.28125
+offset_right = 765.375
+offset_bottom = 484.28125
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9185448, 0.9029508, 2.3102762e-06, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.9999985, 0.9963048, 0.5044029, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("3_ghw46")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8um5k")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_xim88")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_koqhg")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_cmrfp")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_loo7a")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_if7li")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_rrcx7")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_fh7cp")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8e205")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_7467j")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2x1g0")
+text = "Change Keybinds"
+
+[node name="InputSettings" parent="." instance=ExtResource("8_koqhg")]
+layout_mode = 1
+
+[node name="CloseInput" type="Button" parent="InputSettings"]
+layout_mode = 0
+offset_left = 931.0
+offset_top = 17.0
+offset_right = 1080.375
+offset_bottom = 114.28125
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.82160705, 0.1560544, 0.31439844, 1)
+theme_override_colors/font_pressed_color = Color(0.7099704, 0.1722551, 0.24244675, 1)
+theme_override_colors/font_hover_color = Color(1, 0.21176471, 0.5058824, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("3_ghw46")
+theme_override_font_sizes/font_size = 93
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8um5k")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_xim88")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_koqhg")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_cmrfp")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_loo7a")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_if7li")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_rrcx7")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_fh7cp")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8e205")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_7467j")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_2x1g0")
+text = "X
+"
+
+[node name="Change Keybinds" type="Label" parent="InputSettings"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -208.0
+offset_top = 33.0
+offset_right = 211.0
+offset_bottom = 133.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_fonts/font = ExtResource("1_tt5f1")
+theme_override_font_sizes/font_size = 100
+text = "Keybinds"
+
 [connection signal="pressed" from="Main Buttons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Main Buttons/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Main Buttons/Exit" to="." method="_on_exit_pressed"]
@@ -344,3 +422,5 @@ script = ExtResource("7_xim88")
 [connection signal="value_changed" from="Options Panel/MusicS" to="Options Panel/MusicS" method="_on_value_changed"]
 [connection signal="value_changed" from="Options Panel/SFXS" to="Options Panel/SFXS" method="_on_value_changed"]
 [connection signal="toggled" from="Options Panel/ScreenType" to="Options Panel/ScreenType" method="_on_toggled"]
+[connection signal="pressed" from="Options Panel/Change Keybinds" to="." method="_on_change_keybinds_pressed"]
+[connection signal="pressed" from="InputSettings/CloseInput" to="." method="_on_close_input_pressed"]

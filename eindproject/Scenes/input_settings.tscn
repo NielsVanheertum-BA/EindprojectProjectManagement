@@ -1,7 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://cjelunyxkemaa"]
+[gd_scene load_steps=16 format=3 uid="uid://cjelunyxkemaa"]
 
 [ext_resource type="Script" uid="uid://b0kbxusoshqfm" path="res://Scripts/input_settings.gd" id="1_dyv2g"]
 [ext_resource type="PackedScene" uid="uid://bu8uyikoyeqkt" path="res://Scenes/input_button.tscn" id="1_ww7g3"]
+[ext_resource type="FontFile" uid="uid://dq2hat0v08am4" path="res://Assets/Menu Assets/GrapeSoda.ttf" id="3_sjbpd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w02o7"]
+bg_color = Color(0.8851836, 0.88375986, 0.7570062, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.58336383, 0.42653626, 0.17271137, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sjbpd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w02o7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qecfx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g0q2b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rj5fg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xf7e8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5rcp6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bvroc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d10bc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c1f1y"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gcjgn"]
 
 [node name="InputSettings" type="Control"]
 layout_mode = 3
@@ -25,15 +56,21 @@ offset_right = 471.375
 offset_bottom = 307.28125
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_w02o7")
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 30
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+
+[node name="Spacer" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 90)
 layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
@@ -45,5 +82,31 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="InputButton" parent="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/ActionList" instance=ExtResource("1_ww7g3")]
-custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme_override_constants/line_spacing = 10
+
+[node name="ResetButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_color = Color(0.91764706, 0.9019608, 0, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(1, 0.99607843, 0.5058824, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("3_sjbpd")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_sjbpd")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_w02o7")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_qecfx")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_g0q2b")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rj5fg")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_xf7e8")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_5rcp6")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_bvroc")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_d10bc")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_c1f1y")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gcjgn")
+text = "Reset to Default"
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
