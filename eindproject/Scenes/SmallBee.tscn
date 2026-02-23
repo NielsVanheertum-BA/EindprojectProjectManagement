@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0b5sb1xugin0"]
+[gd_scene load_steps=15 format=3 uid="uid://c0b5sb1xugin0"]
 
 [ext_resource type="Script" uid="uid://mvg554ffhqv8" path="res://Scripts/small_bee.gd" id="1_i4jjc"]
 [ext_resource type="Texture2D" uid="uid://dv8yo1dmppf5f" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Fly/Fly-Sheet.png" id="1_kyfcm"]
+[ext_resource type="Texture2D" uid="uid://t4tboaabwscu" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Mob/Small Bee/Hit/Hit-Sheet.png" id="3_bxvg7"]
 [ext_resource type="Script" uid="uid://bk7kiy0ltdv64" path="res://Scripts/OnTouchSmallBee.gd" id="3_i4jjc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4kq6"]
@@ -18,6 +19,22 @@ region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_foo40"]
 atlas = ExtResource("1_kyfcm")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vcmo"]
+atlas = ExtResource("3_bxvg7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htpuf"]
+atlas = ExtResource("3_bxvg7")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5p6s"]
+atlas = ExtResource("3_bxvg7")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lnnu2"]
+atlas = ExtResource("3_bxvg7")
 region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3vcmo"]
@@ -38,6 +55,23 @@ animations = [{
 "loop": true,
 "name": &"Fly",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vcmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htpuf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5p6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lnnu2")
+}],
+"loop": true,
+"name": &"damage",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bxvg7"]
@@ -49,9 +83,8 @@ script = ExtResource("1_i4jjc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -32)
 sprite_frames = SubResource("SpriteFrames_3vcmo")
-animation = &"Fly"
+animation = &"damage"
 autoplay = "Fly"
-frame_progress = 0.49430043
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(1, -32)

@@ -4,6 +4,7 @@ extends CharacterBody2D
 const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 var is_dead = false
+var whichAttack = 1
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_health_bar: ProgressBar = $PlayerHealthBar
@@ -26,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Richting van speler
+# Richting van speler
 	var direction := Input.get_axis("left", "right")
 	
 	# Draai sprite om
@@ -36,21 +37,21 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.flip_h = true
 		
 	# Animaties
-	if is_on_floor():
-		if direction == 0:
-			animated_sprite.play("idle")
+		if is_on_floor():
+			if direction == 0:
+				animated_sprite.play("idle")
+			else:
+				animated_sprite.play("run")
 		else:
-			animated_sprite.play("run")
-	else:
-		animated_sprite.play("jump")
+			animated_sprite.play("jump")
 		
 	# Beweging
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	move_and_slide()
+		move_and_slide()
 
 # Doodgaan functie
 func die():
