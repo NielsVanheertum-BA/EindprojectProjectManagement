@@ -21,6 +21,7 @@ func _process(delta):
 	position.x += direction * SPEED * delta
 
 func take_damage():
+	print("AUUUUUUUU")
 	health = health - GlobalVariables.sword_damage
 	if health > 0:
 		animated_sprite.play("damage")

@@ -5,15 +5,22 @@ const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 var is_dead = false
 var whichAttack = 1
+var is_attacking = false
+var last_direction = 1
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_health_bar: ProgressBar = $PlayerHealthBar
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+@onready var collision_shape: CollisionShape2D = $PlayerHitbox
+@onready var area_right: Area2D = $AreaRight
+@onready var area_left: Area2D = $AreaLeft
 
 
-# Ready functie
+
+# Ready functies
 func _ready() -> void:
 	player_health_bar._init_health(GlobalVariables.playerCurrentHealth)
+	area_left.monitoring = false
+	area_right.monitoring = false
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
@@ -22,36 +29,46 @@ func _physics_process(delta: float) -> void:
 	# Zwaartekracht
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
+	
+	if is_attacking:
+		return
+	
+	if Input.is_action_just_pressed("attack") and is_on_floor():
+		attack()
+		return
+		
 	# Springe
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
+		
 # Richting van speler
 	var direction := Input.get_axis("left", "right")
+
 	
 	# Draai sprite om
 	if direction > 0:
+		last_direction = 1
 		animated_sprite.flip_h = false
 	elif direction < 0:
+		last_direction = -1
 		animated_sprite.flip_h = true
 		
 	# Animaties
-		if is_on_floor():
-			if direction == 0:
-				animated_sprite.play("idle")
-			else:
-				animated_sprite.play("run")
+	if is_on_floor():
+		if direction == 0:
+			animated_sprite.play("idle")
 		else:
-			animated_sprite.play("jump")
+			animated_sprite.play("run")
+	else:
+		animated_sprite.play("jump")
 		
 	# Beweging
-		if direction:
-			velocity.x = direction * SPEED
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 
-		move_and_slide()
+	move_and_slide()
 
 # Doodgaan functie
 func die():
@@ -68,6 +85,30 @@ func die():
 	var tree := get_tree()
 	tree.call_deferred("change_scene_to_file", "res://Scenes/MainMenu.tscn")
 
+func attack():
+	is_attacking = true
+	if whichAttack == 1:
+		animated_sprite.play("attack1")
+		whichAttack = 2
+	else:
+		animated_sprite.play("attack2")
+		whichAttack = 1
+	await get_tree().create_timer(0.2).timeout
+	var enemies = []
+	if last_direction == 1:
+		enemies = area_left.get_overlapping_bodies()
+		
+	elif last_direction == 1:
+		enemies = area_right.get_overlapping_bodies()
+		
+	print(enemies)
+	
+	for body in enemies:
+		if body != self and body.has_method("take_damage"):
+			body.take_damage()
+
+	await get_tree().create_timer(0.2).timeout
+	is_attacking = false
 
 func _process(delta: float) -> void:
 	# Check voor damage
