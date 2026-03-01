@@ -1,6 +1,9 @@
 extends Node2D
 
+
 @onready var pause_menu: Control = $PauseMenu
+@onready var waveText: Label = $Wave
+
 var paused = false
 
 func _ready() -> void:
@@ -12,6 +15,9 @@ func _process(delta: float) -> void:
 	#Pause Menu
 	if Input.is_action_just_pressed("pause"):
 		pauseMenu()
+	
+	waveText.text = "Wave "+str(GlobalVariables.wave)
+	
 
 func pauseMenu():
 	if paused:

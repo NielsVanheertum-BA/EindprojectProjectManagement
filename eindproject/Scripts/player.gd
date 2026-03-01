@@ -87,27 +87,37 @@ func die():
 
 func attack():
 	is_attacking = true
+	
+	area_left.monitoring = true
+	area_right.monitoring = true
+
 	if whichAttack == 1:
 		animated_sprite.play("attack1")
 		whichAttack = 2
 	else:
 		animated_sprite.play("attack2")
 		whichAttack = 1
+
 	await get_tree().create_timer(0.2).timeout
+
 	var enemies = []
+
 	if last_direction == 1:
-		enemies = area_left.get_overlapping_bodies()
-		
-	elif last_direction == 1:
-		enemies = area_right.get_overlapping_bodies()
-		
+		enemies = area_right.get_overlapping_areas()
+	elif last_direction == -1:
+		enemies = area_left.get_overlapping_areas()
+
 	print(enemies)
-	
+
 	for body in enemies:
 		if body != self and body.has_method("take_damage"):
 			body.take_damage()
 
 	await get_tree().create_timer(0.2).timeout
+	
+	area_left.monitoring = false
+	area_right.monitoring = false
+	
 	is_attacking = false
 
 func _process(delta: float) -> void:

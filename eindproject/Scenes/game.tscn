@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bhxq6dv5suolq"]
+[gd_scene load_steps=13 format=3 uid="uid://bhxq6dv5suolq"]
 
 [ext_resource type="Texture2D" uid="uid://qk4fd0vgvqbu" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Background.png" id="1_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bvl2buybphbky" path="res://Scenes/player.tscn" id="1_ebmjs"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cc28t4squowbb" path="res://Scenes/killzone.tscn" id="3_wrm1d"]
 [ext_resource type="PackedScene" uid="uid://c0b5sb1xugin0" path="res://Scenes/SmallBee.tscn" id="5_wowpa"]
 [ext_resource type="PackedScene" uid="uid://cpe8lhhfbmrlt" path="res://Scenes/PauseMenu.tscn" id="7_1l0tm"]
+[ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Menu Assets/bitcre.ttf" id="9_h4fw4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wrm1d"]
 texture = ExtResource("2_qxrlw")
@@ -646,3 +647,19 @@ offset_bottom = -170.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 metadata/_edit_use_anchors_ = true
+
+[node name="Wave" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 229.0
+offset_top = -317.0
+offset_right = 483.0
+offset_bottom = -277.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("9_h4fw4")
+theme_override_font_sizes/font_size = 40
+text = "Filler"
