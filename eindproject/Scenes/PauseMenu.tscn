@@ -38,10 +38,10 @@ script = ExtResource("1_qwhev")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_left = -1102.0
-offset_top = -698.0
-offset_right = 1158.0
-offset_bottom = 785.0
+offset_left = -677.0
+offset_top = -376.0
+offset_right = 767.0
+offset_bottom = 474.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0

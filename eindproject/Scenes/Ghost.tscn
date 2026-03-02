@@ -1,0 +1,132 @@
+[gd_scene load_steps=25 format=3 uid="uid://c0b5sb1xugin0"]
+
+[ext_resource type="Script" uid="uid://mvg554ffhqv8" path="res://Scripts/ghost.gd" id="1_q6p6f"]
+[ext_resource type="Texture2D" uid="uid://bg16l6lopkg46" path="res://Assets/round ghost/round ghost walk/sprite_0.png" id="2_0j2nw"]
+[ext_resource type="Texture2D" uid="uid://wpwolarkfcug" path="res://Assets/round ghost/round ghost walk/sprite_1.png" id="3_gowd2"]
+[ext_resource type="Texture2D" uid="uid://dkw5o2xmck164" path="res://Assets/round ghost/round ghost walk/sprite_2.png" id="4_r6cii"]
+[ext_resource type="Texture2D" uid="uid://d27l5emo6nrbd" path="res://Assets/round ghost/round ghost walk/sprite_3.png" id="5_fndvv"]
+[ext_resource type="Texture2D" uid="uid://cq05ij0ypan0f" path="res://Assets/round ghost/round ghost walk/sprite_4.png" id="6_qi6xf"]
+[ext_resource type="Texture2D" uid="uid://dghe00unq7up" path="res://Assets/round ghost/round ghost walk/sprite_5.png" id="7_gaeqs"]
+[ext_resource type="Texture2D" uid="uid://bhvn4tpwdet5c" path="res://Assets/round ghost/round ghost taking damage/sprite_0.png" id="8_uriai"]
+[ext_resource type="Texture2D" uid="uid://ck5nq2ilmgxir" path="res://Assets/round ghost/round ghost taking damage/sprite_1.png" id="9_w6yov"]
+[ext_resource type="Texture2D" uid="uid://c24urhcenjjd1" path="res://Assets/round ghost/round ghost taking damage/sprite_2.png" id="10_pkfnn"]
+[ext_resource type="Texture2D" uid="uid://difodvvms4ssw" path="res://Assets/round ghost/round ghost taking damage/sprite_3.png" id="11_yhucr"]
+[ext_resource type="Script" uid="uid://bk7kiy0ltdv64" path="res://Scripts/OnTouchGhost.gd" id="12_nflgu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mh1o1"]
+atlas = ExtResource("2_0j2nw")
+region = Rect2(0, 0, 40, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7j4v"]
+atlas = ExtResource("3_gowd2")
+region = Rect2(0, 0, 40, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wq5c4"]
+atlas = ExtResource("4_r6cii")
+region = Rect2(0, 0, 40, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vf4im"]
+atlas = ExtResource("5_fndvv")
+region = Rect2(0, 0, 40, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf77s"]
+atlas = ExtResource("6_qi6xf")
+region = Rect2(0, 0, 40, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbibr"]
+atlas = ExtResource("7_gaeqs")
+region = Rect2(0, 0, 40, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry1mg"]
+atlas = ExtResource("8_uriai")
+region = Rect2(0, 0, 35, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmiew"]
+atlas = ExtResource("9_w6yov")
+region = Rect2(0, 0, 35, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ahkx"]
+atlas = ExtResource("10_pkfnn")
+region = Rect2(0, 0, 35, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bya48"]
+atlas = ExtResource("11_yhucr")
+region = Rect2(0, 0, 35, 26)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3vcmo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mh1o1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7j4v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wq5c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vf4im")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf77s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbibr")
+}],
+"loop": true,
+"name": &"Fly",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ry1mg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmiew")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ahkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bya48")
+}],
+"loop": false,
+"name": &"damage",
+"speed": 20.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bxvg7"]
+radius = 17.029387
+
+[node name="Ghost" type="Node2D"]
+script = ExtResource("1_q6p6f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, -29.25)
+scale = Vector2(1.15, 1.22)
+sprite_frames = SubResource("SpriteFrames_3vcmo")
+animation = &"Fly"
+autoplay = "Fly"
+frame = 4
+frame_progress = 0.21239902
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(1, -32)
+target_position = Vector2(25, 0)
+collision_mask = 4
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(1, -32)
+target_position = Vector2(-25, 0)
+collision_mask = 4
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("12_nflgu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(1, -30)
+shape = SubResource("CircleShape2D_bxvg7")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="Hitbox" method="_on_body_entered"]
