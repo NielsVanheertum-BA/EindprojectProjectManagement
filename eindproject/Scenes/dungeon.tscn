@@ -185,8 +185,8 @@ texture = ExtResource("1_oavya")
 12:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(6.384985, 8, 0.8093643, -1.7985859, -8, -5.935337, -8, 8)
 
 [sub_resource type="TileSet" id="TileSet_ees2o"]
-physics_layer_0/collision_layer = 4
-physics_layer_0/collision_mask = 3
+physics_layer_0/collision_layer = 4294967295
+physics_layer_0/collision_mask = 4294967295
 sources/0 = SubResource("TileSetAtlasSource_dakn4")
 
 [node name="Dungeon" type="Node2D"]

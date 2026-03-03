@@ -10,17 +10,17 @@ var last_direction = 1
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_health_bar: ProgressBar = $PlayerHealthBar
-@onready var collision_shape: CollisionShape2D = $PlayerHitbox
 @onready var area_right: Area2D = $AreaRight
 @onready var area_left: Area2D = $AreaLeft
-
-
+@onready var collision_shape: CollisionShape2D = $Hitbox
 
 # Ready functies
 func _ready() -> void:
 	player_health_bar._init_health(GlobalVariables.playerCurrentHealth)
 	area_left.monitoring = false
 	area_right.monitoring = false
+
+
 
 func _physics_process(delta: float) -> void:
 	if is_dead:

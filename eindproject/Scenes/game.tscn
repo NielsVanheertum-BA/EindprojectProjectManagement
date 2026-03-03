@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhxq6dv5suolq"]
+[gd_scene load_steps=10 format=3 uid="uid://bhxq6dv5suolq"]
 
 [ext_resource type="Texture2D" uid="uid://qk4fd0vgvqbu" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Background.png" id="1_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bvl2buybphbky" path="res://Scenes/player.tscn" id="1_ebmjs"]
 [ext_resource type="Script" uid="uid://cxh1dg4uq2kmg" path="res://Scripts/game.gd" id="1_v158k"]
 [ext_resource type="PackedScene" uid="uid://gl5js00cujr6" path="res://Scenes/playerHealthBar.tscn" id="3_i6g32"]
 [ext_resource type="PackedScene" uid="uid://c0b5sb1xugin0" path="res://Scenes/Ghost.tscn" id="5_wowpa"]
+[ext_resource type="PackedScene" uid="uid://b84ox2q0sh2qy" path="res://Scenes/skeleton.tscn" id="6_h4fw4"]
 [ext_resource type="PackedScene" uid="uid://cpe8lhhfbmrlt" path="res://Scenes/PauseMenu.tscn" id="7_1l0tm"]
 [ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Menu Assets/bitcre.ttf" id="9_h4fw4"]
 [ext_resource type="PackedScene" uid="uid://btfq6kk6swm3y" path="res://Scenes/dungeon.tscn" id="9_ldgsr"]
@@ -17,8 +18,12 @@ position = Vector2(32, -131)
 scale = Vector2(1.7734728, 2.8078332)
 texture = ExtResource("1_3dryh")
 
+[node name="Dungeon" parent="." instance=ExtResource("9_ldgsr")]
+position = Vector2(-754, -848)
+scale = Vector2(1.8, 1.8)
+
 [node name="Player" parent="." instance=ExtResource("1_ebmjs")]
-position = Vector2(10, 92)
+position = Vector2(8, 81)
 scale = Vector2(1.0040519, 0.99834067)
 
 [node name="PlayerHealthBar" parent="Player" instance=ExtResource("3_i6g32")]
@@ -35,6 +40,9 @@ metadata/_edit_use_anchors_ = true
 [node name="Ghost" parent="." instance=ExtResource("5_wowpa")]
 position = Vector2(3.9999995, 22.999992)
 scale = Vector2(1.0040519, 0.99834067)
+
+[node name="skeleton" parent="." instance=ExtResource("6_h4fw4")]
+position = Vector2(476, -72)
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_1l0tm")]
 visible = false
@@ -67,10 +75,6 @@ theme_override_fonts/font = ExtResource("9_h4fw4")
 theme_override_font_sizes/font_size = 40
 text = "Filler"
 metadata/_edit_use_anchors_ = true
-
-[node name="Dungeon" parent="." instance=ExtResource("9_ldgsr")]
-position = Vector2(-754, -848)
-scale = Vector2(1.8, 1.8)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(27, -112)
