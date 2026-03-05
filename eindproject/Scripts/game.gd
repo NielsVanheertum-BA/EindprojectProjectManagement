@@ -11,16 +11,17 @@ extends Node2D
 @onready var spawn_point_5: Node2D = $SpawnPoint5
 @onready var spawn_point_6: Node2D = $SpawnPoint6
 @onready var spawn_point_7: Node2D = $SpawnPoint7
-var spawnPoints = [spawn_point_1, spawn_point_2, spawn_point_3, spawn_point_4, spawn_point_5, spawn_point_6, spawn_point_7] 
+var spawnPoints: Array[Node2D] = []
 
 const skeleton = preload("res://Scenes/skeleton.tscn")
 const ghost = preload("res://Scenes/Ghost.tscn")
 var paused = false
+var waveSpawing = false
 
 func _ready() -> void:
 	Engine.time_scale = 1
 	pause_menu.hide()
-
+	spawnPoints = [spawn_point_1, spawn_point_2, spawn_point_3, spawn_point_4, spawn_point_5, spawn_point_6, spawn_point_7]
 
 func _process(delta: float) -> void:
 	#Pause Menu
@@ -29,9 +30,10 @@ func _process(delta: float) -> void:
 	
 	waveText.text = "Wave "+str(GlobalVariables.wave)
 	
-	if GlobalVariables.enemiesLeft == 0:
+	if GlobalVariables.enemiesLeft == 0 and not waveSpawing:
 		timer.start()
-
+		waveSpawing = true
+		
 func pauseMenu():
 	if paused:
 		pause_menu.hide()
@@ -43,21 +45,19 @@ func pauseMenu():
 
 
 func _on_timer_timeout() -> void:
-	var spawnLocation = 0
-	for teller in GlobalVariables.wave:
+	GlobalVariables.wave += 1
+	GlobalVariables.enemiesLeft = GlobalVariables.wave
+	for teller in range(GlobalVariables.wave):
+		var spawnLocation = randi() % spawnPoints.size()
 		spawn_enemy(spawnLocation)
-		spawnLocation += 1
-		
-func spawn_enemy(spawnLocation):
-	var randomEnemy = randi_range(0,1)
-	
+	waveSpawing = false
+
+func spawn_enemy(spawnLocation: int) -> void:
+	var randomEnemy = randi() % 2
+	var enemy: Node2D
 	if randomEnemy == 0:
-		var enemy = ghost.instantiate() as Node2D
+		enemy = ghost.instantiate() as Node2D
+	else:
+		enemy = skeleton.instantiate() as Node2D
 		add_child(enemy)
-		enemy.global_position = Vector2(spawnPoints[spawnLocation].global_postion)
-	else: 
-		var enemy = skeleton.instantiate() as Node2D
-		add_child(enemy)
-		enemy.global_position = Vector2(spawnPoints[spawnLocation].global_postion)
-	
-	
+		enemy.global_position = spawnPoints[spawnLocation].global_position

@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
-
 var SPEED = 110.0
-
 @onready var player: CharacterBody2D = $"../Player"
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var skeleton_range: Area2D = $Range
