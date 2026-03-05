@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-var SPEED = 150.0
+var SPEED = 110.0
 
 @onready var player: CharacterBody2D = $"../Player"
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D

@@ -178,7 +178,8 @@ height = 40.0
 radius = 274.00183
 
 [node name="skeleton" type="CharacterBody2D"]
-collision_mask = 5
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_5abox")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
