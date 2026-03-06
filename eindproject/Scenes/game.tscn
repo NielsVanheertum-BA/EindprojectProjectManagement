@@ -65,7 +65,25 @@ theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 3
 theme_override_fonts/font = ExtResource("9_h4fw4")
 theme_override_font_sizes/font_size = 40
-text = "Filler"
+text = "Wave"
+metadata/_edit_use_anchors_ = true
+
+[node name="Kills" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 417.0
+offset_top = -311.0
+offset_right = 671.0
+offset_bottom = -271.0
+grow_horizontal = 2
+scale = Vector2(1.0040519, 0.99834067)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("9_h4fw4")
+theme_override_font_sizes/font_size = 30
+text = "Kills"
 metadata/_edit_use_anchors_ = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

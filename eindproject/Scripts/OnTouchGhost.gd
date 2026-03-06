@@ -1,18 +1,9 @@
 extends Area2D
 
 @onready var animated_sprite: AnimatedSprite2D = $"../AnimatedSprite2D"
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D
-@onready var hitbox: Area2D = $"."
+@onready var hitbox: CollisionShape2D = $CollisionShape2D
 
 var health = 20
-func _on_body_entered(body: Node2D) -> void:
-	var areas = hitbox.get_overlapping_areas()
-	for area in areas:
-		if area != self and area.has_method("detect"):
-			GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
-			GlobalVariables.playerCurrentHealth -= 25
-			print(GlobalVariables.playerCurrentHealth)
-
 
 func take_damage():
 	print("AUUUUUUUU")
@@ -21,10 +12,11 @@ func take_damage():
 		animated_sprite.play("damage")
 		await animated_sprite.animation_finished
 		spawn_hit_effect(animated_sprite.get_global_transform().origin)
-		animated_sprite.play("Fly")
+		animated_sprite.play("fly")
 	else:
 		get_parent().queue_free()
 		GlobalVariables.enemiesLeft -= 1
+		GlobalVariables.kill += 1
 
 func spawn_hit_effect(position: Vector2):
 	var effect = Sprite2D.new()

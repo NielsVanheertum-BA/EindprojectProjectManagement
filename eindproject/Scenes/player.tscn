@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cr44jcwsnvden" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Character/Attack-01/Attack-01-Sheet.png" id="2_x3wgy"]
 [ext_resource type="Texture2D" uid="uid://ckkoy80xlr0mo" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Character/Jumlp-All/Jump-All-Sheet.png" id="3_vgqql"]
 [ext_resource type="Texture2D" uid="uid://dnp1wvrs2qgdt" path="res://Assets/Legacy-Fantasy - High Forest 2.3/Character/Run/Run-Sheet.png" id="4_fkybt"]
-[ext_resource type="Script" uid="uid://ntw785vk3e6c" path="res://Scenes/target.gd" id="7_3smsa"]
+[ext_resource type="Script" uid="uid://ntw785vk3e6c" path="res://Scripts/target.gd" id="7_3smsa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_11gg7"]
 atlas = ExtResource("2_x3wgy")
@@ -201,7 +201,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack1",
-"speed": 10.0
+"speed": 17.0
 }, {
 "frames": [{
 "duration": 1.0,

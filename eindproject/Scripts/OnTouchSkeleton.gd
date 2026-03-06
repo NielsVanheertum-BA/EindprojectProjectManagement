@@ -2,7 +2,7 @@ extends Area2D
 
 @onready var animated_sprite: AnimatedSprite2D = $"../AnimatedSprite2D"
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
-var health = 40
+var health = 50
 
 func take_damage():
 	print("AUUUUUUUU")
@@ -16,6 +16,7 @@ func take_damage():
 	else:
 		get_parent().queue_free()
 		GlobalVariables.enemiesLeft -= 1
+		GlobalVariables.kill += 1
 
 func spawn_hit_effect(position: Vector2):
 	var effect = Sprite2D.new()

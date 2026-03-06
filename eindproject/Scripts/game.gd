@@ -3,6 +3,8 @@ extends Node2D
 
 @onready var pause_menu: Control = $PauseMenu
 @onready var waveText: Label = $Wave
+@onready var killsText: Label = $Kills
+
 @onready var timer: Timer = $Timer
 @onready var spawn_point_1: Node2D = $SpawnPoint1
 @onready var spawn_point_2: Node2D = $SpawnPoint2
@@ -13,8 +15,9 @@ extends Node2D
 @onready var spawn_point_7: Node2D = $SpawnPoint7
 var spawnPoints: Array[Node2D] = []
 
+
 const skeleton = preload("res://Scenes/skeleton.tscn")
-const ghost = preload("res://Scenes/Ghost.tscn")
+const ghost = preload("res://Scenes/ghost.tscn")
 var paused = false
 var waveSpawing = false
 
@@ -22,6 +25,7 @@ func _ready() -> void:
 	Engine.time_scale = 1
 	pause_menu.hide()
 	spawnPoints = [spawn_point_1, spawn_point_2, spawn_point_3, spawn_point_4, spawn_point_5, spawn_point_6, spawn_point_7]
+	
 
 func _process(delta: float) -> void:
 	#Pause Menu
@@ -29,8 +33,11 @@ func _process(delta: float) -> void:
 		pauseMenu()
 	
 	waveText.text = "Wave "+str(GlobalVariables.wave)
+	killsText.text = "Kills : "+str(GlobalVariables.kill)
+
 	
-	if GlobalVariables.enemiesLeft == 0 and not waveSpawing:
+	
+	if GlobalVariables.enemiesLeft == 0 and not waveSpawing and timer.is_stopped():
 		timer.start()
 		waveSpawing = true
 		
@@ -59,5 +66,6 @@ func spawn_enemy(spawnLocation: int) -> void:
 		enemy = ghost.instantiate() as Node2D
 	else:
 		enemy = skeleton.instantiate() as Node2D
-		add_child(enemy)
-		enemy.global_position = spawnPoints[spawnLocation].global_position
+		
+	add_child(enemy)
+	enemy.global_position = spawnPoints[spawnLocation].global_position

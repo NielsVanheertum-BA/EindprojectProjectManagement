@@ -187,6 +187,7 @@ text = "Exit
 "
 
 [node name="Options Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -367,6 +368,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_2x1g0")
 text = "Change Keybinds"
 
 [node name="InputSettings" parent="." instance=ExtResource("8_koqhg")]
+visible = false
 layout_mode = 1
 
 [node name="CloseInput" type="Button" parent="InputSettings"]
@@ -414,6 +416,48 @@ theme_override_constants/shadow_offset_y = 10
 theme_override_fonts/font = ExtResource("1_tt5f1")
 theme_override_font_sizes/font_size = 100
 text = "Keybinds"
+
+[node name="killRecord" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.5547017
+anchor_top = 1.8647555
+anchor_right = -0.5547017
+anchor_bottom = 1.8647555
+offset_left = 664.01636
+offset_top = -659.36163
+offset_right = 918.01636
+offset_bottom = -619.36163
+grow_horizontal = 2
+scale = Vector2(1.0040519, 0.99834067)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("1_tt5f1")
+theme_override_font_sizes/font_size = 40
+text = "Kill Record"
+metadata/_edit_use_anchors_ = true
+
+[node name="WaveRecord" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.30729166
+anchor_top = 1.3055557
+anchor_right = -0.30729166
+anchor_bottom = 1.3055557
+offset_left = 370.0
+offset_top = -357.0
+offset_right = 624.0
+offset_bottom = -317.0
+grow_horizontal = 2
+scale = Vector2(1.0040519, 0.99834067)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("1_tt5f1")
+theme_override_font_sizes/font_size = 40
+text = "Wave Record"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Main Buttons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Main Buttons/Options" to="." method="_on_options_pressed"]

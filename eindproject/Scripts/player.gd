@@ -21,7 +21,6 @@ func _ready() -> void:
 	area_right.monitoring = false
 
 
-
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
@@ -82,6 +81,10 @@ func die():
 	await animated_sprite.animation_finished
 	GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
 	Engine.time_scale = 1
+	if GlobalVariables.killRecord < GlobalVariables.kill:
+		GlobalVariables.killRecord = GlobalVariables.kill
+	if GlobalVariables.waveRecord < GlobalVariables.wave:
+		GlobalVariables.waveRecord = GlobalVariables.wave
 	var tree := get_tree()
 	tree.call_deferred("change_scene_to_file", "res://Scenes/MainMenu.tscn")
 
