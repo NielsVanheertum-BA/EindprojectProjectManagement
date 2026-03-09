@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhxq6dv5suolq"]
+[gd_scene load_steps=10 format=3 uid="uid://bhxq6dv5suolq"]
 
 [ext_resource type="Texture2D" uid="uid://qk4fd0vgvqbu" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Background.png" id="1_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bvl2buybphbky" path="res://Scenes/player.tscn" id="1_ebmjs"]
@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://gl5js00cujr6" path="res://Scenes/playerHealthBar.tscn" id="3_i6g32"]
 [ext_resource type="PackedScene" uid="uid://cpe8lhhfbmrlt" path="res://Scenes/PauseMenu.tscn" id="7_1l0tm"]
 [ext_resource type="PackedScene" uid="uid://bfoc2olpemvu5" path="res://Scenes/spawn_point.tscn" id="8_v158k"]
-[ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Menu Assets/bitcre.ttf" id="9_h4fw4"]
+[ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Fonts/bitcre.ttf" id="9_h4fw4"]
 [ext_resource type="PackedScene" uid="uid://btfq6kk6swm3y" path="res://Scenes/dungeon.tscn" id="9_ldgsr"]
+[ext_resource type="PackedScene" uid="uid://d1liht1xsj4e6" path="res://Scenes/upgrades.tscn" id="9_o5yvi"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_v158k")
@@ -116,5 +117,12 @@ position = Vector2(532, 21)
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="Upgrades" parent="." instance=ExtResource("9_o5yvi")]
+custom_minimum_size = Vector2(1000, 0)
+offset_left = -829.0
+offset_top = -578.0
+offset_right = -658.47864
+offset_bottom = -491.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

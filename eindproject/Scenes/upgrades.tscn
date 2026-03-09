@@ -1,0 +1,161 @@
+[gd_scene load_steps=10 format=3 uid="uid://d1liht1xsj4e6"]
+
+[ext_resource type="Texture2D" uid="uid://byyfr3eiknsgb" path="res://Assets/Spell and item basic card template - TornioDuva/single cards/item card.png" id="1_qnnf3"]
+[ext_resource type="Script" uid="uid://chuh8eut4be23" path="res://Scenes/upgrades.gd" id="1_rmsmy"]
+[ext_resource type="FontFile" uid="uid://ci7kaphfa2iu3" path="res://Assets/Fonts/Cinzel-VariableFont_wght.ttf" id="2_mstou"]
+[ext_resource type="FontFile" uid="uid://ddb02nc52bmil" path="res://Assets/Fonts/IMFellEnglish-Regular.ttf" id="3_l0xsu"]
+[ext_resource type="Texture2D" uid="uid://cin113qw8a5qd" path="res://Assets/Upgrades/pngtree-retro-8-bit-sword-icon-with-transparent-background-vector-png-image_21016058.png" id="4_rmsmy"]
+[ext_resource type="Texture2D" uid="uid://dvtvivl16y8xt" path="res://Assets/Upgrades/red-heart-love-pixel-art-icon-doodle-png.png" id="5_sy0g7"]
+[ext_resource type="Texture2D" uid="uid://dlibvbfc364r3" path="res://Assets/Upgrades/shield-removebg-preview.png" id="6_copim"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mstou"]
+
+[sub_resource type="FontVariation" id="FontVariation_lisd6"]
+base_font = ExtResource("2_mstou")
+variation_embolden = 0.96
+
+[node name="Upgrades" type="Control"]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.0011181, 1)
+script = ExtResource("1_rmsmy")
+tween_intensity = 1.2
+tween_duration = 0.3
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1696.1036
+offset_bottom = 981.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 282.68393
+offset_top = 149.0
+offset_right = 1435.684
+offset_bottom = 795.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="UpgradeStrenght" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(300, 10)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.8745098, 0)
+theme_override_colors/font_focus_color = Color(0.9490196, 0.9490196, 0.9490196, 0)
+theme_override_colors/font_hover_color = Color(17.976582, 17.976582, 17.976582, 0)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mstou")
+icon = ExtResource("1_qnnf3")
+flat = true
+expand_icon = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/HBoxContainer/UpgradeStrenght"]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 152.0
+offset_right = 255.0
+offset_bottom = 192.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = SubResource("FontVariation_lisd6")
+theme_override_font_sizes/bold_font_size = 29
+bbcode_enabled = true
+text = "[b]Strenght I"
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/UpgradeStrenght"]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 226.0
+offset_right = 238.0
+offset_bottom = 323.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0xsu")
+theme_override_font_sizes/font_size = 29
+text = "Increases sword 
+damage with 5"
+
+[node name="PngtreeRetro8BitSwordIconWithTransparentBackgroundVectorPngImage21016058" type="Sprite2D" parent="Panel/HBoxContainer/UpgradeStrenght"]
+position = Vector2(56, 171)
+scale = Vector2(0.015, 0.015)
+texture = ExtResource("4_rmsmy")
+
+[node name="UpgradeHealth" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(300, 10)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mstou")
+icon = ExtResource("1_qnnf3")
+flat = true
+expand_icon = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/HBoxContainer/UpgradeHealth"]
+layout_mode = 0
+offset_left = 83.0
+offset_top = 152.0
+offset_right = 261.0
+offset_bottom = 192.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = SubResource("FontVariation_lisd6")
+theme_override_font_sizes/bold_font_size = 29
+bbcode_enabled = true
+text = "[b]Health I"
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/UpgradeHealth"]
+layout_mode = 0
+offset_left = 37.0
+offset_top = 226.0
+offset_right = 271.0
+offset_bottom = 323.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0xsu")
+theme_override_font_sizes/font_size = 29
+text = "Increases maximum
+health with 10"
+
+[node name="RedHeartLovePixelArtIconDoodlePng" type="Sprite2D" parent="Panel/HBoxContainer/UpgradeHealth"]
+position = Vector2(57.875, 169.375)
+scale = Vector2(0.071859844, 0.07071427)
+texture = ExtResource("5_sy0g7")
+
+[node name="UpgradeProtection" type="Button" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(300, 10)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mstou")
+icon = ExtResource("1_qnnf3")
+flat = true
+expand_icon = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Panel/HBoxContainer/UpgradeProtection"]
+layout_mode = 0
+offset_left = 53.0
+offset_top = 151.0
+offset_right = 264.0
+offset_bottom = 191.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = SubResource("FontVariation_lisd6")
+theme_override_font_sizes/bold_font_size = 29
+bbcode_enabled = true
+text = "[b]Protection I"
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/UpgradeProtection"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 230.0
+offset_right = 293.0
+offset_bottom = 350.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_l0xsu")
+theme_override_font_sizes/font_size = 27
+text = "Decreased Damage
+taken from al enemies
+with 10%"
+
+[node name="ShieldRemovebgPreview" type="Sprite2D" parent="Panel/HBoxContainer/UpgradeProtection"]
+position = Vector2(36, 168)
+scale = Vector2(0.16666667, 0.16222224)
+texture = ExtResource("6_copim")
+
+[connection signal="pressed" from="Panel/HBoxContainer/UpgradeStrenght" to="." method="_on_upgrade_strenght_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/UpgradeHealth" to="." method="_on_upgrade_health_pressed"]
+[connection signal="pressed" from="Panel/HBoxContainer/UpgradeProtection" to="." method="_on_upgrade_protection_pressed"]

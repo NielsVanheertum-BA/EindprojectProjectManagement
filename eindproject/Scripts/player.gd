@@ -79,6 +79,10 @@ func die():
 	set_physics_process(false)
 	animated_sprite.play("death")
 	await animated_sprite.animation_finished
+	GlobalVariables.playerMaxHealth = GlobalVariables.playerBaseMaxHealth
+	GlobalVariables.ghostDamage = GlobalVariables.ghostBaseDamage
+	GlobalVariables.skeletonDamage = GlobalVariables.skeletonBaseDamage
+	GlobalVariables.sword_damage = GlobalVariables.sword_base_damage
 	GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
 	Engine.time_scale = 1
 	if GlobalVariables.killRecord < GlobalVariables.kill:

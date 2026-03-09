@@ -13,6 +13,8 @@ extends Node2D
 @onready var spawn_point_5: Node2D = $SpawnPoint5
 @onready var spawn_point_6: Node2D = $SpawnPoint6
 @onready var spawn_point_7: Node2D = $SpawnPoint7
+@onready var upgrades: Control = $Upgrades
+
 var spawnPoints: Array[Node2D] = []
 
 
@@ -20,6 +22,7 @@ const skeleton = preload("res://Scenes/skeleton.tscn")
 const ghost = preload("res://Scenes/ghost.tscn")
 var paused = false
 var waveSpawing = false
+var upgrading = false
 
 func _ready() -> void:
 	Engine.time_scale = 1
@@ -34,12 +37,22 @@ func _process(delta: float) -> void:
 	
 	waveText.text = "Wave "+str(GlobalVariables.wave)
 	killsText.text = "Kills : "+str(GlobalVariables.kill)
-
-	
 	
 	if GlobalVariables.enemiesLeft == 0 and not waveSpawing and timer.is_stopped():
 		timer.start()
 		waveSpawing = true
+	
+	if GlobalVariables.wave == 0 and upgrading == false:
+		upgrades.show()
+		print(GlobalVariables.sword_damage)
+		upgrading = true
+		Engine.time_scale = 0
+	elif GlobalVariables.wave%5 == 0 and upgrading == false:
+		upgrades.show()
+		upgrading = true
+		Engine.time_scale = 0
+	elif GlobalVariables.wave%5 != 0 :
+		upgrading = false
 		
 func pauseMenu():
 	if paused:

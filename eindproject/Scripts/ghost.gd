@@ -41,5 +41,5 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 	for area in areas:
 		if area != self and area.has_method("detect"):
 			GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
-			GlobalVariables.playerCurrentHealth -= 25
+			GlobalVariables.playerCurrentHealth -= GlobalVariables.ghostDamage
 			print(GlobalVariables.playerCurrentHealth)
