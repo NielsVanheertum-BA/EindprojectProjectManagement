@@ -1,0 +1,115 @@
+[gd_scene load_steps=15 format=3 uid="uid://4qv6ech836pg"]
+
+[ext_resource type="Script" uid="uid://diy6agj4m76mh" path="res://Scripts/game_over.gd" id="1_ek8ke"]
+[ext_resource type="FontFile" uid="uid://dq2hat0v08am4" path="res://Assets/Fonts/GrapeSoda.ttf" id="2_eoghk"]
+[ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Fonts/bitcre.ttf" id="3_14u15"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j3ryr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rjluv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gjtdd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uylih"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3817r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mitgx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gs2es"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_asocn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_61f6c"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xqply"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i8bap"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ek8ke")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = -186.0
+offset_top = -199.0
+offset_right = 1644.0
+offset_bottom = 861.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 491.0
+offset_top = 244.0
+offset_right = 656.0
+offset_bottom = 370.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Died" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_fonts/font = ExtResource("3_14u15")
+theme_override_font_sizes/font_size = 82
+text = "You died"
+
+[node name="Restart" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9185448, 0.9029508, 2.3102762e-06, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.9999985, 0.9963048, 0.5044029, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("2_eoghk")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j3ryr")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_rjluv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gjtdd")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_uylih")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_3817r")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_mitgx")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_gs2es")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_asocn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_61f6c")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_xqply")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i8bap")
+text = "Restart"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9185448, 0.9029508, 2.3102762e-06, 1)
+theme_override_colors/font_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0.9999985, 0.9963048, 0.5044029, 1)
+theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("2_eoghk")
+theme_override_font_sizes/font_size = 56
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j3ryr")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_rjluv")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_gjtdd")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_uylih")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_3817r")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_mitgx")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_gs2es")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_asocn")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_61f6c")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_xqply")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_i8bap")
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

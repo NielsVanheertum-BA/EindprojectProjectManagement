@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cpe8lhhfbmrlt"]
+[gd_scene load_steps=15 format=3 uid="uid://cpe8lhhfbmrlt"]
 
-[ext_resource type="FontFile" uid="uid://dq2hat0v08am4" path="res://Assets/Menu Assets/GrapeSoda.ttf" id="1_lj4oq"]
+[ext_resource type="FontFile" uid="uid://dq2hat0v08am4" path="res://Assets/Fonts/GrapeSoda.ttf" id="1_lj4oq"]
 [ext_resource type="Script" uid="uid://bgc2skyqxapv3" path="res://Scripts/pause_menu.gd" id="1_qwhev"]
+[ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Fonts/bitcre.ttf" id="3_5w4ur"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qwhev"]
 
@@ -51,6 +52,15 @@ offset_bottom = 126.0
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 14
+
+[node name="Paused" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_fonts/font = ExtResource("3_5w4ur")
+theme_override_font_sizes/font_size = 82
+text = "Game Paused"
 
 [node name="Resume" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

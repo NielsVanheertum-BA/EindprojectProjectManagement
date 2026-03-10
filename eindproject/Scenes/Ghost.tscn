@@ -196,4 +196,11 @@ script = ExtResource("20_gu7qg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_bacfh")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="area_shape_entered" from="Hurtbox" to="." method="_on_hurtbox_area_shape_entered"]
+[connection signal="area_shape_exited" from="Hurtbox" to="." method="_on_hurtbox_area_shape_exited"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

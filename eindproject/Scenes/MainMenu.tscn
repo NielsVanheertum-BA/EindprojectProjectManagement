@@ -1,9 +1,9 @@
 [gd_scene load_steps=25 format=3 uid="uid://gtrv8sncgha3"]
 
 [ext_resource type="Script" uid="uid://dppg6rvsnysxl" path="res://Scripts/main_menu.gd" id="1_8saeu"]
-[ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Menu Assets/bitcre.ttf" id="1_tt5f1"]
+[ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Fonts/bitcre.ttf" id="1_tt5f1"]
 [ext_resource type="PackedScene" uid="uid://dtiwstgtu7qi8" path="res://Scenes/backgroundMainMenu.tscn" id="2_ghw46"]
-[ext_resource type="FontFile" uid="uid://dq2hat0v08am4" path="res://Assets/Menu Assets/GrapeSoda.ttf" id="3_ghw46"]
+[ext_resource type="FontFile" uid="uid://dq2hat0v08am4" path="res://Assets/Fonts/GrapeSoda.ttf" id="3_ghw46"]
 [ext_resource type="AudioStream" uid="uid://fgqy3e7ouwll" path="res://Assets/Audio/ElevatorMusic.wav" id="5_df05h"]
 [ext_resource type="Script" uid="uid://bltwmlhbkw7p7" path="res://Scripts/music.gd" id="6_8um5k"]
 [ext_resource type="Script" uid="uid://w3hv0fn1hgu4" path="res://Scripts/screen_type.gd" id="7_xim88"]
@@ -67,6 +67,48 @@ bus = &"Music"
 
 [node name="Background" parent="." instance=ExtResource("2_ghw46")]
 position = Vector2(317, -19)
+
+[node name="killRecord" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.5104309
+anchor_top = 1.8616693
+anchor_right = -0.5104309
+anchor_bottom = 1.8616693
+offset_left = 664.01636
+offset_top = -659.36163
+offset_right = 918.01636
+offset_bottom = -619.36163
+grow_horizontal = 2
+scale = Vector2(1.0040519, 0.99834067)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("1_tt5f1")
+theme_override_font_sizes/font_size = 40
+text = "Kill Record"
+metadata/_edit_use_anchors_ = true
+
+[node name="WaveRecord" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.265625
+anchor_top = 1.3040123
+anchor_right = -0.265625
+anchor_bottom = 1.3040123
+offset_left = 370.0
+offset_top = -357.0
+offset_right = 624.0
+offset_bottom = -317.0
+grow_horizontal = 2
+scale = Vector2(1.0040519, 0.99834067)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
+theme_override_fonts/font = ExtResource("1_tt5f1")
+theme_override_font_sizes/font_size = 40
+text = "Wave Record"
+metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -416,48 +458,6 @@ theme_override_constants/shadow_offset_y = 10
 theme_override_fonts/font = ExtResource("1_tt5f1")
 theme_override_font_sizes/font_size = 100
 text = "Keybinds"
-
-[node name="killRecord" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.5104309
-anchor_top = 1.8616693
-anchor_right = -0.5104309
-anchor_bottom = 1.8616693
-offset_left = 664.01636
-offset_top = -659.36163
-offset_right = 918.01636
-offset_bottom = -619.36163
-grow_horizontal = 2
-scale = Vector2(1.0040519, 0.99834067)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_fonts/font = ExtResource("1_tt5f1")
-theme_override_font_sizes/font_size = 40
-text = "Kill Record"
-metadata/_edit_use_anchors_ = true
-
-[node name="WaveRecord" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -0.2934028
-anchor_top = 1.3055556
-anchor_right = -0.2934028
-anchor_bottom = 1.3055556
-offset_left = 370.0
-offset_top = -357.0
-offset_right = 624.0
-offset_bottom = -317.0
-grow_horizontal = 2
-scale = Vector2(1.0040519, 0.99834067)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 3
-theme_override_fonts/font = ExtResource("1_tt5f1")
-theme_override_font_sizes/font_size = 40
-text = "Wave Record"
-metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="Main Buttons/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Main Buttons/Options" to="." method="_on_options_pressed"]

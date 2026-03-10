@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhxq6dv5suolq"]
+[gd_scene load_steps=11 format=3 uid="uid://bhxq6dv5suolq"]
 
 [ext_resource type="Texture2D" uid="uid://qk4fd0vgvqbu" path="res://Assets/Free Pixel Art plataformer painted style/PNG/Mountains/Background.png" id="1_3dryh"]
 [ext_resource type="PackedScene" uid="uid://bvl2buybphbky" path="res://Scenes/player.tscn" id="1_ebmjs"]
@@ -9,6 +9,7 @@
 [ext_resource type="FontFile" uid="uid://coqjem14k2a1a" path="res://Assets/Fonts/bitcre.ttf" id="9_h4fw4"]
 [ext_resource type="PackedScene" uid="uid://btfq6kk6swm3y" path="res://Scenes/dungeon.tscn" id="9_ldgsr"]
 [ext_resource type="PackedScene" uid="uid://d1liht1xsj4e6" path="res://Scenes/upgrades.tscn" id="9_o5yvi"]
+[ext_resource type="PackedScene" uid="uid://4qv6ech836pg" path="res://Scenes/game_over.tscn" id="10_ldgsr"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_v158k")
@@ -124,5 +125,12 @@ offset_left = -829.0
 offset_top = -578.0
 offset_right = -658.47864
 offset_bottom = -491.0
+
+[node name="GameOver" parent="." instance=ExtResource("10_ldgsr")]
+visible = false
+offset_left = -669.0
+offset_top = -472.0
+offset_right = -669.0
+offset_bottom = -472.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

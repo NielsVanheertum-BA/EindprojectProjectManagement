@@ -7,7 +7,8 @@ var health = 1
 @onready var ghost_range: Area2D = $Range
 @onready var player: CharacterBody2D = $"../Player"
 @onready var hurtbox: Area2D = $Hurtbox
-
+@onready var timer: Timer = $Timer
+var playerInside = false
 # Beweeging bij
 
 func _process(delta):
@@ -34,12 +35,24 @@ func _process(delta):
 	
 	# Move and slide with floor detection
 	move_and_slide()
+	if playerInside:
+		if !timer.is_stopped():
+			return
+		else: 
+			var areasHurt = hurtbox.get_overlapping_areas()
+			for area in areasHurt:
+				if area != self and area.has_method("detect"):
+					timer.start()
+
+func _on_timer_timeout() -> void:
+	GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
+	GlobalVariables.playerCurrentHealth -= GlobalVariables.ghostDamage
+	print(GlobalVariables.playerCurrentHealth)
 
 
-func _on_hurtbox_body_entered(body: Node2D) -> void:
-	var areas = hurtbox.get_overlapping_areas()
-	for area in areas:
-		if area != self and area.has_method("detect"):
-			GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
-			GlobalVariables.playerCurrentHealth -= GlobalVariables.ghostDamage
-			print(GlobalVariables.playerCurrentHealth)
+func _on_hurtbox_area_shape_entered(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	playerInside = true
+
+func _on_hurtbox_area_shape_exited(area_rid: RID, area: Area2D, area_shape_index: int, local_shape_index: int) -> void:
+	playerInside = false
+	timer.stop()

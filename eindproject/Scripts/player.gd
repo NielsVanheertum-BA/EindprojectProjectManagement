@@ -13,9 +13,10 @@ var last_direction = 1
 @onready var area_right: Area2D = $AreaRight
 @onready var area_left: Area2D = $AreaLeft
 @onready var collision_shape: CollisionShape2D = $Hitbox
-
+@onready var game_over: Control = $"../GameOver"
 # Ready functies
 func _ready() -> void:
+	game_over.hide()
 	player_health_bar._init_health(GlobalVariables.playerCurrentHealth)
 	area_left.monitoring = false
 	area_right.monitoring = false
@@ -74,7 +75,7 @@ func die():
 	if is_dead:
 		return
 	is_dead = true
-
+	GlobalVariables.playerAlive = false
 	Engine.time_scale = 0.5
 	set_physics_process(false)
 	animated_sprite.play("death")
@@ -84,13 +85,16 @@ func die():
 	GlobalVariables.skeletonDamage = GlobalVariables.skeletonBaseDamage
 	GlobalVariables.sword_damage = GlobalVariables.sword_base_damage
 	GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
-	Engine.time_scale = 1
+	GlobalVariables.enemiesLeft = 0
+	
+	
 	if GlobalVariables.killRecord < GlobalVariables.kill:
 		GlobalVariables.killRecord = GlobalVariables.kill
 	if GlobalVariables.waveRecord < GlobalVariables.wave:
 		GlobalVariables.waveRecord = GlobalVariables.wave
-	var tree := get_tree()
-	tree.call_deferred("change_scene_to_file", "res://Scenes/MainMenu.tscn")
+	GlobalVariables.wave = 0
+	GlobalVariables.kill = 0
+	game_over.show()
 
 func attack():
 	is_attacking = true

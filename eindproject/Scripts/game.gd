@@ -31,28 +31,31 @@ func _ready() -> void:
 	
 
 func _process(delta: float) -> void:
-	#Pause Menu
-	if Input.is_action_just_pressed("pause"):
-		pauseMenu()
 	
 	waveText.text = "Wave "+str(GlobalVariables.wave)
 	killsText.text = "Kills : "+str(GlobalVariables.kill)
+	#Pause Menu
+	if Input.is_action_just_pressed("pause"):
+		pauseMenu()
 	
 	if GlobalVariables.enemiesLeft == 0 and not waveSpawing and timer.is_stopped():
 		timer.start()
 		waveSpawing = true
 	
-	if GlobalVariables.wave == 0 and upgrading == false:
+	if GlobalVariables.wave == 0 and upgrading == false and GlobalVariables.playerAlive == true:
 		upgrades.show()
 		print(GlobalVariables.sword_damage)
 		upgrading = true
 		Engine.time_scale = 0
-	elif GlobalVariables.wave%5 == 0 and upgrading == false:
+	elif GlobalVariables.wave%5 == 0 and upgrading == false and GlobalVariables.playerAlive == true:
 		upgrades.show()
 		upgrading = true
 		Engine.time_scale = 0
-	elif GlobalVariables.wave%5 != 0 :
+	elif GlobalVariables.wave%5 != 0 and GlobalVariables.playerAlive == true:
 		upgrading = false
+	
+	if GlobalVariables.wave == 0:
+		GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
 		
 func pauseMenu():
 	if paused:

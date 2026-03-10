@@ -15,3 +15,5 @@ var ghostBaseDamage = 15
 var ghostDamage = 15
 var skeletonBaseDamage = 10
 var skeletonDamage = 10
+var keybindsCreated = false
+var playerAlive = true

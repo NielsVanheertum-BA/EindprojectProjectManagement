@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b0kbxusoshqfm" path="res://Scripts/input_settings.gd" id="1_dyv2g"]
 [ext_resource type="PackedScene" uid="uid://bu8uyikoyeqkt" path="res://Scenes/input_button.tscn" id="1_ww7g3"]
-[ext_resource type="FontFile" uid="uid://dq2hat0v08am4" path="res://Assets/Menu Assets/GrapeSoda.ttf" id="3_sjbpd"]
+[ext_resource type="FontFile" uid="uid://dq2hat0v08am4" path="res://Assets/Fonts/GrapeSoda.ttf" id="3_sjbpd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w02o7"]
 bg_color = Color(0.8851836, 0.88375986, 0.7570062, 1)
