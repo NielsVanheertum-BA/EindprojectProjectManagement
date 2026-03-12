@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b84ox2q0sh2qy"]
+[gd_scene load_steps=31 format=3 uid="uid://b84ox2q0sh2qy"]
 
 [ext_resource type="Script" uid="uid://clcp0sc3h2byq" path="res://Scripts/skeleton.gd" id="1_5abox"]
 [ext_resource type="Texture2D" uid="uid://f7ijdtsjb55i" path="res://Assets/FREE_SkeletonPack_ByPhewcumber/Default/Attack/Sword/Skeleton_Default_Attack_Sword+Shield.png" id="1_pegji"]
@@ -110,7 +110,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
-"speed": 8.0
+"speed": 13.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -177,6 +177,9 @@ height = 40.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_5abox"]
 radius = 274.00183
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8sxu"]
+size = Vector2(22.5, 24)
+
 [node name="skeleton" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 4
@@ -185,23 +188,45 @@ script = ExtResource("1_5abox")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_pegji")
-animation = &"idle"
-frame = 2
-frame_progress = 0.8575069
+animation = &"attack"
+frame = 5
+frame_progress = 1.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_5abox")
 
 [node name="Range" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_5abox")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 script = ExtResource("6_v8sxu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_5abox")
+
+[node name="AttackRight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRight"]
+position = Vector2(26, 1)
+shape = SubResource("RectangleShape2D_v8sxu")
+
+[node name="AttackLeft" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackLeft"]
+position = Vector2(-25.75, 1)
+shape = SubResource("RectangleShape2D_v8sxu")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="area_entered" from="AttackRight" to="." method="_on_attack_right_area_entered"]
+[connection signal="area_shape_entered" from="AttackRight" to="." method="_on_attack_right_area_shape_entered"]
+[connection signal="area_entered" from="AttackLeft" to="." method="_on_attack_left_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
