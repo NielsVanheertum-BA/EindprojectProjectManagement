@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 	# Apply gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	if is_attacking:
+	if is_attacking and is_on_floor():
 		return
 	
 	var player_detected = false
@@ -58,15 +58,25 @@ func _on_attack_right_area_entered(area: Area2D) -> void:
 
 
 func _on_timer_timeout() -> void:
+	is_attacking = true
+	velocity.x = 0
 	var enemies = []
 	if attackingSdie == "left":
 		enemies = attack_left.get_overlapping_areas()
 	elif attackingSdie == "right":
 		enemies = attack_right.get_overlapping_areas()
-	
+
 	for body in enemies:
 		if body != self and body.has_method("detect"):
 			animated_sprite.play("attack")
 			await get_tree().create_timer(0.2).timeout
-			GlobalVariables.playerCurrentHealth -= 10
+			if attackingSdie == "left":
+				enemies = attack_left.get_overlapping_areas()
+			elif attackingSdie == "right":
+				enemies = attack_right.get_overlapping_areas()
+				for body2 in enemies:
+					if body2 != self and body.has_method("detect"):
+						GlobalVariables.playerCurrentHealth -= 10
+				await  animated_sprite.animation_finished
+			
 	is_attacking = false
