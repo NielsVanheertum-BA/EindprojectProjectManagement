@@ -7,13 +7,11 @@ extends Control
 @onready var wave_record: Label = $WaveRecord
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	options_panel.hide()
 	input_settings.hide()
 	Engine.time_scale = 1
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	
 func _process(delta: float) -> void:
 	wave_record.text = "Wave Record: "+str(GlobalVariables.waveRecord)
 	kill_record.text = "Kills Record: "+str(GlobalVariables.killRecord)
@@ -37,7 +35,6 @@ func _on_close_pressed() -> void:
 
 func _on_change_keybinds_pressed() -> void:
 	input_settings.show()
-
 
 
 func _on_close_input_pressed() -> void:

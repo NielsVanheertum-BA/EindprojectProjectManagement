@@ -13,12 +13,14 @@ var is_attacking = false
 var attackingSdie = ""
 
 func _physics_process(delta: float) -> void:
-	# Apply gravity
+	#Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	
 	if is_attacking and is_on_floor():
 		return
-	
+		
+	#Detect and movement
 	var player_detected = false
 	var areas = skeleton_range.get_overlapping_areas()
 	for body in areas:
@@ -27,7 +29,6 @@ func _physics_process(delta: float) -> void:
 			break
 
 	if player_detected:
-		# Chase player
 		animated_sprite.play("run")
 		if position.x > player.global_position.x:
 			animated_sprite.flip_h = false
@@ -37,11 +38,9 @@ func _physics_process(delta: float) -> void:
 		var direction = position.direction_to(player.global_position).normalized()
 		velocity.x = direction.x * SPEED
 	else:
-		# Idle: stop horizontal movement
 		velocity.x = 0
 		animated_sprite.play("idle")
 	
-	# Move and slide with floor detection
 	move_and_slide()
 
 func _on_attack_left_area_entered(area: Area2D) -> void:
@@ -65,7 +64,8 @@ func _on_timer_timeout() -> void:
 		enemies = attack_left.get_overlapping_areas()
 	elif attackingSdie == "right":
 		enemies = attack_right.get_overlapping_areas()
-
+	
+	#Damage at correct frame if in box
 	for body in enemies:
 		if body != self and body.has_method("detect"):
 			animated_sprite.play("attack")

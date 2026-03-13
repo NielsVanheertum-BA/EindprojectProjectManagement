@@ -14,7 +14,7 @@ var last_direction = 1
 @onready var area_left: Area2D = $AreaLeft
 @onready var collision_shape: CollisionShape2D = $Hitbox
 @onready var game_over: Control = $"../GameOver"
-# Ready functies
+
 func _ready() -> void:
 	game_over.hide()
 	player_health_bar._init_health(GlobalVariables.playerCurrentHealth)
@@ -26,7 +26,6 @@ func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
 	
-	# Zwaartekracht
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
@@ -36,16 +35,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("attack") and is_on_floor():
 		attack()
 		return
-		
-	# Springe
+
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		
-# Richting van speler
 	var direction := Input.get_axis("left", "right")
 
-	
-	# Draai sprite om
 	if direction > 0:
 		last_direction = 1
 		animated_sprite.flip_h = false
@@ -53,7 +48,6 @@ func _physics_process(delta: float) -> void:
 		last_direction = -1
 		animated_sprite.flip_h = true
 		
-	# Animaties
 	if is_on_floor():
 		if direction == 0:
 			animated_sprite.play("idle")
@@ -62,7 +56,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		animated_sprite.play("jump")
 		
-	# Beweging
 	if direction:
 		velocity.x = direction * SPEED
 	else:
@@ -70,7 +63,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-# Doodgaan functie
 func die():
 	if is_dead:
 		return
@@ -132,7 +124,6 @@ func attack():
 	is_attacking = false
 
 func _process(delta: float) -> void:
-	# Check voor damage
 	if GlobalVariables.playerCurrentHealth != GlobalVariables.playerPreviousHealth :
 		GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
 		spawn_hit_effect(collision_shape.global_position)
@@ -142,7 +133,6 @@ func _process(delta: float) -> void:
 		else: 
 			player_health_bar.health = GlobalVariables.playerCurrentHealth
 			
-# Hit effect
 func spawn_hit_effect(position: Vector2):
 	var effect = Sprite2D.new()
 	effect.texture = animated_sprite.sprite_frames.get_frame_texture("idle", 0) 
@@ -151,7 +141,6 @@ func spawn_hit_effect(position: Vector2):
 	effect.scale = Vector2(1, 1)
 	get_parent().add_child(effect)
 	
-	# Fade out en verwijder
 	var tween = create_tween()
 	tween.tween_property(effect, "modulate:a", 0.0, 0.3)
 	tween.tween_property(effect, "scale", Vector2(1.5, 1.5), 0.3)

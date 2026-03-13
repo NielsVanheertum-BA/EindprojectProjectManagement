@@ -1,6 +1,5 @@
 extends Node2D
 
-
 @onready var pause_menu: Control = $PauseMenu
 @onready var waveText: Label = $Wave
 @onready var killsText: Label = $Kills
@@ -17,7 +16,6 @@ extends Node2D
 
 var spawnPoints: Array[Node2D] = []
 
-
 const skeleton = preload("res://Scenes/skeleton.tscn")
 const ghost = preload("res://Scenes/ghost.tscn")
 var paused = false
@@ -29,19 +27,23 @@ func _ready() -> void:
 	pause_menu.hide()
 	spawnPoints = [spawn_point_1, spawn_point_2, spawn_point_3, spawn_point_4, spawn_point_5, spawn_point_6, spawn_point_7]
 	
-
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	
 	waveText.text = "Wave "+str(GlobalVariables.wave)
 	killsText.text = "Kills : "+str(GlobalVariables.kill)
-	#Pause Menu
+	
 	if Input.is_action_just_pressed("pause"):
 		pauseMenu()
-	
+		
+	#Waves
 	if GlobalVariables.enemiesLeft == 0 and not waveSpawing and timer.is_stopped():
 		timer.start()
 		waveSpawing = true
 	
+		if GlobalVariables.wave == 0:
+			GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
+		
+	#Upgrades
 	if GlobalVariables.wave == 0 and upgrading == false and GlobalVariables.playerAlive == true:
 		upgrades.show()
 		print(GlobalVariables.sword_damage)
@@ -53,9 +55,7 @@ func _process(delta: float) -> void:
 		Engine.time_scale = 0
 	elif GlobalVariables.wave%5 != 0 and GlobalVariables.playerAlive == true:
 		upgrading = false
-	
-	if GlobalVariables.wave == 0:
-		GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
+
 		
 func pauseMenu():
 	if paused:
@@ -66,7 +66,7 @@ func pauseMenu():
 		Engine.time_scale = 0
 	paused = !paused
 
-
+#Enemy Spawning
 func _on_timer_timeout() -> void:
 	GlobalVariables.wave += 1
 	GlobalVariables.enemiesLeft = GlobalVariables.wave

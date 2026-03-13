@@ -10,7 +10,6 @@ func take_damage():
 
 	if health > 0:
 		animated_sprite.play("hurt")
-		# Wait for the hurt animation to finish
 		await animated_sprite.animation_finished
 		spawn_hit_effect(animated_sprite.global_position)
 	else:
@@ -25,8 +24,7 @@ func spawn_hit_effect(position: Vector2):
 	effect.modulate = Color(1, 0, 0, 0.7)
 	effect.scale = Vector2(1, 1)
 	get_tree().current_scene.add_child(effect)
-	
-	# Fade out and remove
+
 	var tween = create_tween()
 	tween.tween_property(effect, "modulate:a", 0.0, 0.2)
 	tween.tween_property(effect, "scale", Vector2(1.5, 1.5), 0.3)

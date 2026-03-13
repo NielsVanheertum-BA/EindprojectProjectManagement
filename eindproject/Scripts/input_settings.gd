@@ -19,6 +19,7 @@ func _ready() -> void:
 	_create_action_list()
 	
 func _create_action_list():
+	#Load current settings from project
 	InputMap.load_from_project_settings()
 	for item in action_list.get_children():
 		item.queue_free()
@@ -37,7 +38,7 @@ func _create_action_list():
 		
 		action_list.add_child(button)
 		button.pressed.connect(_on_input_button_pressed.bind(button, action))
-		
+
 func _on_input_button_pressed(button, action):
 	if !is_remapping:
 		is_remapping = true
@@ -47,6 +48,7 @@ func _on_input_button_pressed(button, action):
 		
 
 func _input(event):
+	#Check for Input and assign to control
 	if is_remapping:
 		if (event is InputEventKey || (event is InputEventMouseButton && event.pressed)):
 			

@@ -9,17 +9,17 @@ var health = 1
 @onready var hurtbox: Area2D = $Hurtbox
 @onready var timer: Timer = $Timer
 var playerInside = false
-# Beweeging bij
 
 func _process(delta):
+	#Player Detecting & movement
 	var player_detected = false
 	var areas = ghost_range.get_overlapping_areas()
 	for body in areas:
 		if body != self and body.has_method("detect"):
 			player_detected = true
 			break
+			
 	if player_detected:
-		# Chase player
 		animated_sprite.play("fly")
 		if position.x > player.global_position.x:
 			animated_sprite.flip_h = false
@@ -33,7 +33,6 @@ func _process(delta):
 		velocity.x = 0
 		animated_sprite.play("idle")
 	
-	# Move and slide with floor detection
 	move_and_slide()
 	if playerInside:
 		if !timer.is_stopped():
