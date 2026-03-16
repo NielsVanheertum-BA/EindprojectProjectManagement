@@ -5,21 +5,25 @@ extends Area2D
 var health = 50
 
 func take_damage():
+	GlobalVariables.skeletonIsHurt = true
 	print("AUUUUUUUU")
 	health -= GlobalVariables.sword_damage
 
 	if health > 0:
 		animated_sprite.play("hurt")
 		await animated_sprite.animation_finished
-		spawn_hit_effect(animated_sprite.global_position)
 	else:
+		animated_sprite.play("hurt")
+		spawn_hit_effect(animated_sprite.global_position)
+		await animated_sprite.animation_finished
 		get_parent().queue_free()
 		GlobalVariables.enemiesLeft -= 1
 		GlobalVariables.kill += 1
+	GlobalVariables.skeletonIsHurt = false
 
 func spawn_hit_effect(position: Vector2):
 	var effect = Sprite2D.new()
-	effect.texture = animated_sprite.sprite_frames.get_frame_texture("damage", 0)
+	effect.texture = animated_sprite.sprite_frames.get_frame_texture("hurt", 0)
 	effect.global_position = position
 	effect.modulate = Color(1, 0, 0, 0.7)
 	effect.scale = Vector2(1, 1)

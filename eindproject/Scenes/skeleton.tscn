@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://b84ox2q0sh2qy"]
+[gd_scene load_steps=30 format=3 uid="uid://b84ox2q0sh2qy"]
 
 [ext_resource type="Script" uid="uid://clcp0sc3h2byq" path="res://Scripts/skeleton.gd" id="1_5abox"]
 [ext_resource type="Texture2D" uid="uid://f7ijdtsjb55i" path="res://Assets/FREE_SkeletonPack_ByPhewcumber/Default/Attack/Sword/Skeleton_Default_Attack_Sword+Shield.png" id="1_pegji"]
@@ -26,10 +26,6 @@ region = Rect2(192, 0, 64, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_clg8n"]
 atlas = ExtResource("1_pegji")
 region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pxjam"]
-atlas = ExtResource("1_pegji")
-region = Rect2(320, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k4moy"]
 atlas = ExtResource("2_5abox")
@@ -104,9 +100,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_clg8n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pxjam")
 }],
 "loop": false,
 "name": &"attack",
@@ -189,8 +182,6 @@ script = ExtResource("1_5abox")
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_pegji")
 animation = &"attack"
-frame = 5
-frame_progress = 1.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)

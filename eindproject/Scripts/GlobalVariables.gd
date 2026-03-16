@@ -17,3 +17,5 @@ var skeletonBaseDamage = 10
 var skeletonDamage = 10
 var keybindsCreated = false
 var playerAlive = true
+var skeletonIsHurt = false
+var ghostIsHurt = false

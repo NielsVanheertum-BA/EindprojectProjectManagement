@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 var SPEED = randf_range(70.0, 140.0)
-var health = 1
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var collision_shape: CollisionShape2D = $Hitbox
 @onready var ghost_range: Area2D = $Range
@@ -11,6 +10,13 @@ var health = 1
 var playerInside = false
 
 func _process(delta):
+	
+	if GlobalVariables.ghostIsHurt:
+		velocity.x = 0
+		velocity.y = 0
+		move_and_slide()
+		return
+		
 	#Player Detecting & movement
 	var player_detected = false
 	var areas = ghost_range.get_overlapping_areas()

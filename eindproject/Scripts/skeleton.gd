@@ -11,12 +11,18 @@ var SPEED = randf_range(100.0, 200.0)
 
 var is_attacking = false
 var attackingSdie = ""
+var is_hurt = false
 
 func _physics_process(delta: float) -> void:
 	#Gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	if GlobalVariables.skeletonIsHurt:
+		velocity.x = 0
+		move_and_slide()
+		return
+		
 	if is_attacking and is_on_floor():
 		return
 		
@@ -74,9 +80,9 @@ func _on_timer_timeout() -> void:
 				enemies = attack_left.get_overlapping_areas()
 			elif attackingSdie == "right":
 				enemies = attack_right.get_overlapping_areas()
-				for body2 in enemies:
-					if body2 != self and body.has_method("detect"):
-						GlobalVariables.playerCurrentHealth -= 10
-				await  animated_sprite.animation_finished
+			for body2 in enemies:
+				if body2 != self and body.has_method("detect"):
+					GlobalVariables.playerCurrentHealth -= GlobalVariables.skeletonDamage
+			await  animated_sprite.animation_finished
 			
 	is_attacking = false

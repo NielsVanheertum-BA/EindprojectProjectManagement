@@ -3,20 +3,23 @@ extends Area2D
 @onready var animated_sprite: AnimatedSprite2D = $"../AnimatedSprite2D"
 @onready var hitbox: CollisionShape2D = $CollisionShape2D
 
-var health = 20
+var health = 21
 
 func take_damage():
+	GlobalVariables.ghostIsHurt = true
 	print("AUUUUUUUU")
 	health = health - GlobalVariables.sword_damage
 	if health > 0:
 		animated_sprite.play("damage")
 		await animated_sprite.animation_finished
-		spawn_hit_effect(animated_sprite.get_global_transform().origin)
-		animated_sprite.play("fly")
 	else:
+		animated_sprite.play("damage")
+		spawn_hit_effect(animated_sprite.get_global_transform().origin)
+		await animated_sprite.animation_finished
 		get_parent().queue_free()
 		GlobalVariables.enemiesLeft -= 1
 		GlobalVariables.kill += 1
+	GlobalVariables.ghostIsHurt = false
 
 func spawn_hit_effect(position: Vector2):
 	var effect = Sprite2D.new()

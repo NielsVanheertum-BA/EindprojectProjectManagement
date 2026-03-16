@@ -1,9 +1,8 @@
-[gd_scene load_steps=42 format=3 uid="uid://c16fw5dywswt7"]
+[gd_scene load_steps=40 format=3 uid="uid://c16fw5dywswt7"]
 
 [ext_resource type="Script" uid="uid://mvg554ffhqv8" path="res://Scripts/ghost.gd" id="1_bacfh"]
 [ext_resource type="Texture2D" uid="uid://bhvn4tpwdet5c" path="res://Assets/round ghost/round ghost taking damage/sprite_0.png" id="2_gu7qg"]
 [ext_resource type="Texture2D" uid="uid://ck5nq2ilmgxir" path="res://Assets/round ghost/round ghost taking damage/sprite_1.png" id="3_p4wdi"]
-[ext_resource type="Texture2D" uid="uid://c24urhcenjjd1" path="res://Assets/round ghost/round ghost taking damage/sprite_2.png" id="4_w60pv"]
 [ext_resource type="Texture2D" uid="uid://difodvvms4ssw" path="res://Assets/round ghost/round ghost taking damage/sprite_3.png" id="5_yo8bj"]
 [ext_resource type="Texture2D" uid="uid://bg16l6lopkg46" path="res://Assets/round ghost/round ghost walk/sprite_0.png" id="6_awks0"]
 [ext_resource type="Texture2D" uid="uid://wpwolarkfcug" path="res://Assets/round ghost/round ghost walk/sprite_1.png" id="7_d3atw"]
@@ -27,10 +26,6 @@ region = Rect2(0, 0, 35, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ad2r"]
 atlas = ExtResource("3_p4wdi")
-region = Rect2(0, 0, 35, 26)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_611ff"]
-atlas = ExtResource("4_w60pv")
 region = Rect2(0, 0, 35, 26)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tbmem"]
@@ -103,14 +98,11 @@ animations = [{
 "texture": SubResource("AtlasTexture_4ad2r")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_611ff")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_tbmem")
 }],
-"loop": true,
+"loop": false,
 "name": &"damage",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
