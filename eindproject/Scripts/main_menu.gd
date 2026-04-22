@@ -13,8 +13,10 @@ func _ready() -> void:
 	Engine.time_scale = 1
 	
 func _process(delta: float) -> void:
+	Engine.time_scale = 1
 	wave_record.text = "Wave Record: "+str(GlobalVariables.waveRecord)
 	kill_record.text = "Kills Record: "+str(GlobalVariables.killRecord)
+	
 
 func _on_start_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/game.tscn")

@@ -12,6 +12,8 @@ var last_direction = 1
 @onready var player_health_bar: ProgressBar = $PlayerHealthBar
 @onready var area_right: Area2D = $AreaRight
 @onready var area_left: Area2D = $AreaLeft
+@onready var area_down: Area2D = $AreaDown
+@onready var area_up: Area2D = $AreaUp
 @onready var collision_shape: CollisionShape2D = $Hitbox
 @onready var game_over: Control = $"../GameOver"
 
@@ -32,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	if is_attacking:
 		return
 	
-	if Input.is_action_just_pressed("attack") and is_on_floor():
+	if Input.is_action_just_pressed("attack"):
 		attack()
 		return
 
@@ -53,6 +55,7 @@ func _physics_process(delta: float) -> void:
 			animated_sprite.play("idle")
 		else:
 			animated_sprite.play("run")
+
 	else:
 		animated_sprite.play("jump")
 		
@@ -87,6 +90,7 @@ func die():
 	GlobalVariables.wave = 0
 	GlobalVariables.kill = 0
 	game_over.show()
+	Engine.time_scale = 0
 
 func attack():
 	is_attacking = true
@@ -94,7 +98,13 @@ func attack():
 	area_left.monitoring = true
 	area_right.monitoring = true
 
-	if whichAttack == 1:
+	if not is_on_floor():
+		animated_sprite.play("attack1")
+	elif Input.is_action_pressed("up"):
+		animated_sprite.play("attackUp")
+	elif Input.is_action_pressed("down"):
+		animated_sprite.play("attackDown")
+	elif whichAttack == 1:
 		animated_sprite.play("attack1")
 		whichAttack = 2
 	else:
@@ -105,11 +115,14 @@ func attack():
 
 	var enemies = []
 
-	if last_direction == 1:
+	if Input.is_action_pressed("up"):
+		enemies = area_up.get_overlapping_areas()
+	elif Input.is_action_pressed("down"):
+		enemies = area_down.get_overlapping_areas()
+	elif last_direction == 1:
 		enemies = area_right.get_overlapping_areas()
 	elif last_direction == -1:
 		enemies = area_left.get_overlapping_areas()
-
 	print(enemies)
 
 	for body in enemies:
