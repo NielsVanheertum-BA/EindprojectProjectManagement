@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://b84ox2q0sh2qy"]
+[gd_scene load_steps=31 format=3 uid="uid://b84ox2q0sh2qy"]
 
 [ext_resource type="Script" uid="uid://clcp0sc3h2byq" path="res://Scripts/skeleton.gd" id="1_5abox"]
 [ext_resource type="Texture2D" uid="uid://f7ijdtsjb55i" path="res://Assets/FREE_SkeletonPack_ByPhewcumber/Default/Attack/Sword/Skeleton_Default_Attack_Sword+Shield.png" id="1_pegji"]
@@ -171,7 +171,10 @@ height = 40.0
 radius = 274.00183
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8sxu"]
-size = Vector2(17.875, 24)
+size = Vector2(19, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ks230"]
+size = Vector2(19, 24)
 
 [node name="skeleton" type="CharacterBody2D"]
 collision_layer = 2
@@ -207,14 +210,14 @@ shape = SubResource("CapsuleShape2D_5abox")
 [node name="AttackRight" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRight"]
-position = Vector2(24, 1)
+position = Vector2(22.5, 1)
 shape = SubResource("RectangleShape2D_v8sxu")
 
 [node name="AttackLeft" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackLeft"]
-position = Vector2(-23.0625, 1)
-shape = SubResource("RectangleShape2D_v8sxu")
+position = Vector2(-22.5, 1)
+shape = SubResource("RectangleShape2D_ks230")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
