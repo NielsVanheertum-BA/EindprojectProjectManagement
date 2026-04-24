@@ -19,3 +19,6 @@ var keybindsCreated = false
 var playerAlive = true
 var skeletonIsHurt = false
 var ghostIsHurt = false
+var orcDamage = 25
+var orcBaseDamage = 25
+var orcIsHurt = false

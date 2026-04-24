@@ -2,6 +2,7 @@ extends Node2D
 
 const SKELETON = preload("res://Scenes/skeleton.tscn")
 const GHOST = preload("res://Scenes/ghost.tscn")
+const ORC = preload("res://Scenes/orc.tscn")
 
 @onready var pause_menu: Control = $PauseMenu
 @onready var wave_text: Label = $Wave
@@ -66,6 +67,21 @@ func _on_timer_timeout() -> void:
 
 
 func spawn_enemy(spawn_index: int) -> void:
-	var enemy: Node2D = GHOST.instantiate() if randi() % 2 == 0 else SKELETON.instantiate()
+	var enemy: Node2D
+	var random = 1
+	
+	if GlobalVariables.wave >= 5:
+		random = randfn(0, 2)
+	else:
+		random = randfn(0,1)
+		
+	if random == 0:
+		enemy = GHOST.instantiate()
+	elif random == 1:
+		enemy = SKELETON.instantiate()
+	elif random == 2:
+		enemy = ORC.instantiate()
+		
+	
 	add_child(enemy)
 	enemy.global_position = spawn_points[spawn_index].global_position
