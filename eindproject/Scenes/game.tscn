@@ -120,6 +120,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Upgrades" parent="." instance=ExtResource("9_o5yvi")]
+visible = false
 custom_minimum_size = Vector2(1000, 0)
 offset_left = -829.0
 offset_top = -578.0

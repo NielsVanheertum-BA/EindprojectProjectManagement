@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://cgk8n6n7sael4"]
+[gd_scene load_steps=32 format=3 uid="uid://cgk8n6n7sael4"]
 
 [ext_resource type="Texture2D" uid="uid://droobw02s40pc" path="res://Assets/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc/Orc.png" id="1_1qkx3"]
 [ext_resource type="Script" uid="uid://cjlj3ivtf7vob" path="res://Scenes/orc.gd" id="1_8h1l3"]
+[ext_resource type="Script" uid="uid://jexnqwotmgol" path="res://Scenes/OnTouchOrc.gd" id="3_6et41"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8h1l3"]
 atlas = ExtResource("1_1qkx3")
@@ -191,14 +192,14 @@ animations = [{
 radius = 15.0
 height = 34.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5abox"]
-radius = 274.00183
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8sxu"]
 size = Vector2(40, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ks230"]
 size = Vector2(40, 56)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6et41"]
+radius = 274.00183
 
 [node name="orc" type="CharacterBody2D"]
 collision_layer = 2
@@ -217,15 +218,9 @@ frame_progress = 1.0
 position = Vector2(3, 3)
 shape = SubResource("CapsuleShape2D_5abox")
 
-[node name="Range" type="Area2D" parent="."]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
-position = Vector2(1, 1)
-shape = SubResource("CircleShape2D_5abox")
-
 [node name="Hurtbox" type="Area2D" parent="."]
 visible = false
+script = ExtResource("3_6et41")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -1)
@@ -245,6 +240,13 @@ shape = SubResource("RectangleShape2D_ks230")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
+
+[node name="Range" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+position = Vector2(1, 1)
+shape = SubResource("CircleShape2D_6et41")
 
 [connection signal="area_entered" from="AttackRight" to="." method="_on_attack_right_area_entered"]
 [connection signal="area_shape_entered" from="AttackRight" to="." method="_on_attack_right_area_shape_entered"]

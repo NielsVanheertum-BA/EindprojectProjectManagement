@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
-const ATTACK_HIT_DELAY := 0.2
+const ATTACK_HIT_DELAY := 3
 
-var speed := randf_range(50.0, 80.0)
+var speed := randf_range(60.0, 90.0)
 var is_attacking := false
 var attacking_side := ""
 
@@ -32,7 +32,7 @@ func _physics_process(delta: float) -> void:
 
 	if player_detected:
 		animated_sprite.play("run")
-		animated_sprite.flip_h = position.x < player.global_position.x
+		animated_sprite.flip_h = position.x > player.global_position.x
 		velocity.x = position.direction_to(player.global_position).x * speed
 	else:
 		velocity.x = 0

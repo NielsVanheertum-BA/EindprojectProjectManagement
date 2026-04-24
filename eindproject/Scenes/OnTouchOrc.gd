@@ -1,6 +1,6 @@
 extends Area2D
 
-const BASE_HEALTH := 120
+const BASE_HEALTH := 200
 
 @onready var animated_sprite: AnimatedSprite2D = $"../AnimatedSprite2D"
 

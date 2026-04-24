@@ -25,7 +25,7 @@ func take_damage() -> void:
 
 func spawn_hit_effect(pos: Vector2) -> void:
 	var effect := Sprite2D.new()
-	effect.texture = animated_sprite.sprite_frames.get_frame_texture("hurt", 0)
+	effect.texture = animated_sprite.sprite_frames.get_frame_texture("damage", 0)
 	effect.global_position = pos
 	effect.modulate = Color(1, 0, 0, 0.7)
 	get_tree().current_scene.add_child(effect)
