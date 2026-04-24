@@ -1,12 +1,14 @@
 extends CharacterBody2D
 
-
 const SPEED = 240.0
 const JUMP_VELOCITY = -450.0
-var is_dead = false
-var whichAttack = 1
-var is_attacking = false
-var last_direction = 1
+const ATTACK_HIT_DELAY = 0.2
+const ATTACK_END_DELAY = 0.2
+
+var is_dead := false
+var which_attack := 1
+var is_attacking := false
+var last_direction := 1
 
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var player_health_bar: ProgressBar = $PlayerHealthBar
@@ -17,30 +19,26 @@ var last_direction = 1
 @onready var collision_shape: CollisionShape2D = $Hitbox
 @onready var game_over: Control = $"../GameOver"
 
+
 func _ready() -> void:
 	game_over.hide()
 	player_health_bar._init_health(GlobalVariables.playerCurrentHealth)
-	area_left.monitoring = false
-	area_right.monitoring = false
+	_set_attack_areas(false)
 
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
 		return
-	
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
-	if is_attacking:
-		return
-	
-	if Input.is_action_just_pressed("attack"):
+
+	if Input.is_action_just_pressed("attack") and not is_attacking:
 		attack()
-		return
 
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-		
+
 	var direction := Input.get_axis("left", "right")
 
 	if direction > 0:
@@ -49,24 +47,30 @@ func _physics_process(delta: float) -> void:
 	elif direction < 0:
 		last_direction = -1
 		animated_sprite.flip_h = true
-		
-	if is_on_floor():
-		if direction == 0:
-			animated_sprite.play("idle")
-		else:
-			animated_sprite.play("run")
 
-	else:
-		animated_sprite.play("jump")
-		
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+	if not is_attacking:
+		if is_on_floor():
+			animated_sprite.play("idle" if direction == 0 else "run")
+		else:
+			animated_sprite.play("jump")
+
+	velocity.x = direction * SPEED if direction else move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
 
-func die():
+
+func _process(_delta: float) -> void:
+	if GlobalVariables.playerCurrentHealth != GlobalVariables.playerPreviousHealth:
+		GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
+		spawn_hit_effect(collision_shape.global_position)
+		if GlobalVariables.playerCurrentHealth <= 0:
+			die()
+			player_health_bar.health = 0.0000001
+		else:
+			player_health_bar.health = GlobalVariables.playerCurrentHealth
+
+
+func die() -> void:
 	if is_dead:
 		return
 	is_dead = true
@@ -75,28 +79,28 @@ func die():
 	set_physics_process(false)
 	animated_sprite.play("death")
 	await animated_sprite.animation_finished
+
+	# Reset global stats
 	GlobalVariables.playerMaxHealth = GlobalVariables.playerBaseMaxHealth
 	GlobalVariables.ghostDamage = GlobalVariables.ghostBaseDamage
 	GlobalVariables.skeletonDamage = GlobalVariables.skeletonBaseDamage
 	GlobalVariables.sword_damage = GlobalVariables.sword_base_damage
 	GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
 	GlobalVariables.enemiesLeft = 0
-	
-	
-	if GlobalVariables.killRecord < GlobalVariables.kill:
-		GlobalVariables.killRecord = GlobalVariables.kill
-	if GlobalVariables.waveRecord < GlobalVariables.wave:
-		GlobalVariables.waveRecord = GlobalVariables.wave
+
+	# Update records
+	GlobalVariables.killRecord = maxi(GlobalVariables.killRecord, GlobalVariables.kill)
+	GlobalVariables.waveRecord = maxi(GlobalVariables.waveRecord, GlobalVariables.wave)
 	GlobalVariables.wave = 0
 	GlobalVariables.kill = 0
+
 	game_over.show()
 	Engine.time_scale = 0
 
-func attack():
+
+func attack() -> void:
 	is_attacking = true
-	
-	area_left.monitoring = true
-	area_right.monitoring = true
+	_set_attack_areas(true)
 
 	if not is_on_floor():
 		animated_sprite.play("attack1")
@@ -104,58 +108,52 @@ func attack():
 		animated_sprite.play("attackUp")
 	elif Input.is_action_pressed("down"):
 		animated_sprite.play("attackDown")
-	elif whichAttack == 1:
+	elif which_attack == 1:
 		animated_sprite.play("attack1")
-		whichAttack = 2
+		which_attack = 2
 	else:
 		animated_sprite.play("attack2")
-		whichAttack = 1
+		which_attack = 1
 
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(ATTACK_HIT_DELAY).timeout
 
-	var enemies = []
-
+	# Determine active attack area
+	var enemies: Array
 	if Input.is_action_pressed("up"):
 		enemies = area_up.get_overlapping_areas()
 	elif Input.is_action_pressed("down"):
 		enemies = area_down.get_overlapping_areas()
 	elif last_direction == 1:
 		enemies = area_right.get_overlapping_areas()
-	elif last_direction == -1:
+	else:
 		enemies = area_left.get_overlapping_areas()
-	print(enemies)
 
 	for body in enemies:
 		if body != self and body.has_method("take_damage"):
 			body.take_damage()
 
-	await get_tree().create_timer(0.2).timeout
-	
-	area_left.monitoring = false
-	area_right.monitoring = false
-	
+	await get_tree().create_timer(ATTACK_END_DELAY).timeout
+
+	_set_attack_areas(false)
 	is_attacking = false
 
-func _process(delta: float) -> void:
-	if GlobalVariables.playerCurrentHealth != GlobalVariables.playerPreviousHealth :
-		GlobalVariables.playerPreviousHealth = GlobalVariables.playerCurrentHealth
-		spawn_hit_effect(collision_shape.global_position)
-		if GlobalVariables.playerCurrentHealth <= 0:
-			die()
-			player_health_bar.health = 0.0000001
-		else: 
-			player_health_bar.health = GlobalVariables.playerCurrentHealth
-			
-func spawn_hit_effect(position: Vector2):
-	var effect = Sprite2D.new()
-	effect.texture = animated_sprite.sprite_frames.get_frame_texture("idle", 0) 
-	effect.global_position = position
-	effect.modulate = Color(1, 0, 0, 0.7) 
-	effect.scale = Vector2(1, 1)
+
+func spawn_hit_effect(pos: Vector2) -> void:
+	var effect := Sprite2D.new()
+	effect.texture = animated_sprite.sprite_frames.get_frame_texture("idle", 0)
+	effect.global_position = pos
+	effect.modulate = Color(1, 0, 0, 0.7)
 	get_parent().add_child(effect)
-	
-	var tween = create_tween()
+
+	var tween := create_tween()
+	tween.set_parallel(true)
 	tween.tween_property(effect, "modulate:a", 0.0, 0.3)
 	tween.tween_property(effect, "scale", Vector2(1.5, 1.5), 0.3)
-	tween.tween_callback(effect.queue_free)
-	print("Hit effect werkt")
+	tween.chain().tween_callback(effect.queue_free)
+
+
+func _set_attack_areas(enabled: bool) -> void:
+	area_left.monitoring = enabled
+	area_right.monitoring = enabled
+	area_up.monitoring = enabled
+	area_down.monitoring = enabled

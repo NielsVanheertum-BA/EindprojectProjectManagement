@@ -1,87 +1,71 @@
 extends Node2D
 
-@onready var pause_menu: Control = $PauseMenu
-@onready var waveText: Label = $Wave
-@onready var killsText: Label = $Kills
+const SKELETON = preload("res://Scenes/skeleton.tscn")
+const GHOST = preload("res://Scenes/ghost.tscn")
 
+@onready var pause_menu: Control = $PauseMenu
+@onready var wave_text: Label = $Wave
+@onready var kills_text: Label = $Kills
 @onready var timer: Timer = $Timer
-@onready var spawn_point_1: Node2D = $SpawnPoint1
-@onready var spawn_point_2: Node2D = $SpawnPoint2
-@onready var spawn_point_3: Node2D = $SpawnPoint3
-@onready var spawn_point_4: Node2D = $SpawnPoint4
-@onready var spawn_point_5: Node2D = $SpawnPoint5
-@onready var spawn_point_6: Node2D = $SpawnPoint6
-@onready var spawn_point_7: Node2D = $SpawnPoint7
 @onready var upgrades: Control = $Upgrades
 
-var spawnPoints: Array[Node2D] = []
+var spawn_points: Array[Node2D] = []
+var paused := false
+var wave_spawning := false
+var upgrading := false
 
-const skeleton = preload("res://Scenes/skeleton.tscn")
-const ghost = preload("res://Scenes/ghost.tscn")
-var paused = false
-var waveSpawing = false
-var upgrading = false
 
 func _ready() -> void:
 	Engine.time_scale = 1
 	pause_menu.hide()
-	spawnPoints = [spawn_point_1, spawn_point_2, spawn_point_3, spawn_point_4, spawn_point_5, spawn_point_6, spawn_point_7]
-	
+	spawn_points = [
+		$SpawnPoint1, $SpawnPoint2, $SpawnPoint3, $SpawnPoint4,
+		$SpawnPoint5, $SpawnPoint6, $SpawnPoint7
+	]
+
+
 func _process(_delta: float) -> void:
-	
-	waveText.text = "Wave "+str(GlobalVariables.wave)
-	killsText.text = "Kills : "+str(GlobalVariables.kill)
-	
+	wave_text.text = "Wave " + str(GlobalVariables.wave)
+	kills_text.text = "Kills : " + str(GlobalVariables.kill)
+
 	if Input.is_action_just_pressed("pause"):
-		pauseMenu()
-		
-	#Waves
-	if GlobalVariables.enemiesLeft == 0 and not waveSpawing and timer.is_stopped():
-		timer.start()
-		waveSpawing = true
-	
+		toggle_pause()
+
+	# Start next wave timer when all enemies are gone
+	if GlobalVariables.enemiesLeft == 0 and not wave_spawning and timer.is_stopped():
 		if GlobalVariables.wave == 0:
 			GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
-		
-	#Upgrades
-	if GlobalVariables.wave == 0 and upgrading == false and GlobalVariables.playerAlive == true:
-		upgrades.show()
-		print(GlobalVariables.sword_damage)
-		upgrading = true
-		Engine.time_scale = 0
-	elif GlobalVariables.wave%5 == 0 and upgrading == false and GlobalVariables.playerAlive == true:
-		upgrades.show()
-		upgrading = true
-		Engine.time_scale = 0
-	elif GlobalVariables.wave%5 != 0 and GlobalVariables.playerAlive == true:
-		upgrading = false
+		timer.start()
+		wave_spawning = true
 
-		
-func pauseMenu():
-	if paused:
-		pause_menu.hide()
-		Engine.time_scale = 1
-	else:
-		pause_menu.show()
-		Engine.time_scale = 0
+	# Upgrades
+	if GlobalVariables.playerAlive:
+		var is_upgrade_wave = GlobalVariables.wave == 0 or GlobalVariables.wave % 5 == 0
+		if is_upgrade_wave and not upgrading:
+			upgrades.show()
+			upgrading = true
+			Engine.time_scale = 0
+		elif not is_upgrade_wave:
+			upgrading = false
+
+
+func toggle_pause() -> void:
 	paused = !paused
+	pause_menu.visible = paused
+	Engine.time_scale = 0 if paused else 1
 
-#Enemy Spawning
+
 func _on_timer_timeout() -> void:
 	GlobalVariables.wave += 1
 	GlobalVariables.enemiesLeft = GlobalVariables.wave
-	for teller in range(GlobalVariables.wave):
-		var spawnLocation = randi() % spawnPoints.size()
-		spawn_enemy(spawnLocation)
-	waveSpawing = false
 
-func spawn_enemy(spawnLocation: int) -> void:
-	var randomEnemy = randi() % 2
-	var enemy: Node2D
-	if randomEnemy == 0:
-		enemy = ghost.instantiate() as Node2D
-	else:
-		enemy = skeleton.instantiate() as Node2D
-		
+	for i in GlobalVariables.wave:
+		spawn_enemy(randi() % spawn_points.size())
+
+	wave_spawning = false
+
+
+func spawn_enemy(spawn_index: int) -> void:
+	var enemy: Node2D = GHOST.instantiate() if randi() % 2 == 0 else SKELETON.instantiate()
 	add_child(enemy)
-	enemy.global_position = spawnPoints[spawnLocation].global_position
+	enemy.global_position = spawn_points[spawn_index].global_position

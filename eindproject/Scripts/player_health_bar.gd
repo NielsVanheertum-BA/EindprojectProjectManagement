@@ -1,24 +1,26 @@
 extends ProgressBar
 
-@onready var player_damage_bar = $PlayerDamageBar
-@onready var timer = $Timer
+@onready var player_damage_bar: ProgressBar = $PlayerDamageBar
+@onready var timer: Timer = $Timer
 
-var health = 0 : set = _set_health
+var health := 0.0: set = _set_health
 
-func _set_health(new_health):
-	var prev_health = health
-	health = min(max_value, new_health)
+
+func _set_health(new_health: float) -> void:
+	var prev_health := health
+	health = clampf(new_health, 0.0, max_value)
 	value = health
-	
+
 	if health < prev_health:
 		timer.start()
-		
-func _init_health(_health):
-	health = _health 
-	max_value = health
-	value = health
-	player_damage_bar.max_value = health
-	player_damage_bar.value = health
+
+
+func _init_health(initial_health: float) -> void:
+	max_value = initial_health
+	player_damage_bar.max_value = initial_health
+	health = initial_health
+	player_damage_bar.value = initial_health
+
 
 func _on_timer_timeout() -> void:
 	player_damage_bar.value = health
