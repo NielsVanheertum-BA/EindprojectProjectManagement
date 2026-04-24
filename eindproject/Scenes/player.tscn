@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://bvl2buybphbky"]
+[gd_scene load_steps=74 format=3 uid="uid://bvl2buybphbky"]
 
 [ext_resource type="Script" uid="uid://b2mvxcadm8c2d" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://qh4pl2np7xt4" path="res://Assets/SHADOW Series - The Blind Huntress/Sprite Sheet/10 - attack 1.png" id="2_8erm5"]
@@ -268,11 +268,6 @@ animations = [{
 "name": &"attack2",
 "speed": 10.0
 }, {
-"frames": [],
-"loop": true,
-"name": &"attackAir",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1htnp")
@@ -286,7 +281,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lisdf")
 }],
-"loop": true,
+"loop": false,
 "name": &"attackDown",
 "speed": 5.0
 }, {
@@ -303,7 +298,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_usbl8")
 }],
-"loop": true,
+"loop": false,
 "name": &"attackUp",
 "speed": 5.0
 }, {
@@ -450,8 +445,17 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gymyn"]
+size = Vector2(33.265915, 41.512703)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pu2lt"]
+size = Vector2(37, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ukyrk"]
+size = Vector2(90, 31)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ax3m3"]
-size = Vector2(50.18182, 37.130714)
+size = Vector2(90, 31)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x3wgy"]
 radius = 8.0
@@ -468,35 +472,37 @@ script = ExtResource("1_cvnsp")
 position = Vector2(1, -18.000002)
 scale = Vector2(1.1956521, 1.1321839)
 sprite_frames = SubResource("SpriteFrames_x3wgy")
-animation = &"attackAir"
+animation = &"attack1"
 autoplay = "idle"
+frame = 2
+frame_progress = 1.0
 
 [node name="AreaDown" type="Area2D" parent="."]
 position = Vector2(63.173912, -70.08046)
 scale = Vector2(1.1956521, 1.1321839)
 
 [node name="AttackDown" type="CollisionShape2D" parent="AreaDown"]
-position = Vector2(-52, 79.54633)
-shape = SubResource("RectangleShape2D_ax3m3")
+position = Vector2(-52.836365, 72.939095)
+shape = SubResource("RectangleShape2D_gymyn")
 
 [node name="AreaUp" type="Area2D" parent="."]
 position = Vector2(52, -46)
 
 [node name="AttackUp" type="CollisionShape2D" parent="AreaUp"]
-position = Vector2(-51, -16)
-shape = SubResource("RectangleShape2D_ax3m3")
+position = Vector2(-52.5, -18)
+shape = SubResource("RectangleShape2D_pu2lt")
 
 [node name="AreaRight" type="Area2D" parent="."]
 position = Vector2(26, -23)
 
 [node name="AttackRight" type="CollisionShape2D" parent="AreaRight"]
-position = Vector2(11, 1)
-shape = SubResource("RectangleShape2D_ax3m3")
+position = Vector2(27, 2)
+shape = SubResource("RectangleShape2D_ukyrk")
 
 [node name="AreaLeft" type="Area2D" parent="."]
 
 [node name="AttackLeft" type="CollisionShape2D" parent="AreaLeft"]
-position = Vector2(-36, -22)
+position = Vector2(-53, -21)
 shape = SubResource("RectangleShape2D_ax3m3")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]

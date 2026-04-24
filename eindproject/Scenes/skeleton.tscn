@@ -171,7 +171,7 @@ height = 40.0
 radius = 274.00183
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v8sxu"]
-size = Vector2(15.25, 24)
+size = Vector2(17.875, 24)
 
 [node name="skeleton" type="CharacterBody2D"]
 collision_layer = 2
@@ -182,6 +182,8 @@ script = ExtResource("1_5abox")
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_pegji")
 animation = &"attack"
+frame = 4
+frame_progress = 1.0
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
@@ -205,13 +207,13 @@ shape = SubResource("CapsuleShape2D_5abox")
 [node name="AttackRight" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRight"]
-position = Vector2(22.375, 1)
+position = Vector2(24, 1)
 shape = SubResource("RectangleShape2D_v8sxu")
 
 [node name="AttackLeft" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackLeft"]
-position = Vector2(-21.75, 1)
+position = Vector2(-23.0625, 1)
 shape = SubResource("RectangleShape2D_v8sxu")
 
 [node name="Timer" type="Timer" parent="."]

@@ -25,13 +25,12 @@ func take_damage() -> void:
 
 func spawn_hit_effect(pos: Vector2) -> void:
 	var effect := Sprite2D.new()
-	effect.texture = animated_sprite.sprite_frames.get_frame_texture("damage", 0)
+	effect.texture = animated_sprite.sprite_frames.get_frame_texture("hurt", 0)
 	effect.global_position = pos
 	effect.modulate = Color(1, 0, 0, 0.7)
 	get_tree().current_scene.add_child(effect)
-
-	var tween := create_tween()
+	var tween := effect.create_tween()
 	tween.set_parallel(true)
-	tween.tween_property(effect, "modulate:a", 0.0, 0.2)
+	tween.tween_property(effect, "modulate:a", 0.0, 0.3)
 	tween.tween_property(effect, "scale", Vector2(1.5, 1.5), 0.3)
 	tween.chain().tween_callback(effect.queue_free)

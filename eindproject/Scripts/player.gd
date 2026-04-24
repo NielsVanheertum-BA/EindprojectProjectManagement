@@ -102,12 +102,17 @@ func attack() -> void:
 	is_attacking = true
 	_set_attack_areas(true)
 
-	if not is_on_floor():
-		animated_sprite.play("attack1")
-	elif Input.is_action_pressed("up"):
+	# Snapshot direction and vertical input at moment of attack
+	var attack_direction := last_direction
+	var attack_up := Input.is_action_pressed("up")
+	var attack_down := Input.is_action_pressed("down")
+
+	if attack_up:
 		animated_sprite.play("attackUp")
-	elif Input.is_action_pressed("down"):
+	elif attack_down:
 		animated_sprite.play("attackDown")
+	elif not is_on_floor():
+		animated_sprite.play("attack1")
 	elif which_attack == 1:
 		animated_sprite.play("attack1")
 		which_attack = 2
@@ -117,13 +122,13 @@ func attack() -> void:
 
 	await get_tree().create_timer(ATTACK_HIT_DELAY).timeout
 
-	# Determine active attack area
+	# Use snapshotted direction, not current input
 	var enemies: Array
-	if Input.is_action_pressed("up"):
+	if attack_up:
 		enemies = area_up.get_overlapping_areas()
-	elif Input.is_action_pressed("down"):
+	elif attack_down:
 		enemies = area_down.get_overlapping_areas()
-	elif last_direction == 1:
+	elif attack_direction == 1:
 		enemies = area_right.get_overlapping_areas()
 	else:
 		enemies = area_left.get_overlapping_areas()
