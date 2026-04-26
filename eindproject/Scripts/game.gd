@@ -4,16 +4,16 @@ const SKELETON = preload("res://Scenes/skeleton.tscn")
 const GHOST = preload("res://Scenes/ghost.tscn")
 const ORC = preload("res://Scenes/orc.tscn")
 const HEART = preload("res://Scenes/heart.tscn")
+const MINOTAURUS = preload("res://Scenes/minotaurus.tscn")
 
-const MAX_ORCS_EARLY_GAME = 3
-const ORC_LIMIT_WAVE = 20
-const HEART_SPAWN_INTERVAL = 5
+const HEART_SPAWN_INTERVAL = 4
 
 @onready var pause_menu: Control = $PauseMenu
 @onready var wave_text: Label = $Wave
 @onready var kills_text: Label = $Kills
 @onready var timer: Timer = $Timer
 @onready var upgrades: Control = $Upgrades
+@onready var healthdisplay: Label = $Player/PlayerHealthBar/Health
 
 var spawn_points: Array[Node2D] = []
 var paused := false
@@ -21,10 +21,16 @@ var wave_spawning := false
 var upgrading := false
 var orcs_spawned_this_wave := 0
 
+var _last_wave := -1
+var _last_kills := -1
+var _last_health := -1
+
 
 func _ready() -> void:
-	Engine.time_scale = 1
 	pause_menu.hide()
+	upgrades.show()
+	Engine.time_scale = 0
+	upgrading = true
 	spawn_points = [
 		$SpawnPoint1, $SpawnPoint2, $SpawnPoint3, $SpawnPoint4,
 		$SpawnPoint5, $SpawnPoint6, $SpawnPoint7
@@ -32,88 +38,98 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	wave_text.text = "Wave " + str(GlobalVariables.wave)
-	kills_text.text = "Kills : " + str(GlobalVariables.kill)
+	if GlobalVariables.wave != _last_wave:
+		_last_wave = GlobalVariables.wave
+		wave_text.text = "Wave " + str(GlobalVariables.wave)
+
+	if GlobalVariables.kill != _last_kills:
+		_last_kills = GlobalVariables.kill
+		kills_text.text = "Kills : " + str(GlobalVariables.kill)
+
+	if GlobalVariables.playerCurrentHealth != _last_health:
+		_last_health = GlobalVariables.playerCurrentHealth
+		healthdisplay.text = str(GlobalVariables.playerCurrentHealth) + "/" + str(GlobalVariables.playerMaxHealth)
+
 	if Input.is_action_just_pressed("pause"):
-		toggle_pause()
-	# Start next wave timer when all enemies are gone
-	if GlobalVariables.enemiesLeft == 0 and not wave_spawning and timer.is_stopped():
-		if GlobalVariables.wave == 0:
-			GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
-		timer.start()
+		pause_menu.show()
+		Engine.time_scale = 0
+
+	if GlobalVariables.enemiesLeft == 0 \
+	and not wave_spawning \
+	and timer.is_stopped() \
+	and not upgrading:
+		timer.start(2.0)
 		wave_spawning = true
-	# Upgrades
-	if GlobalVariables.playerAlive:
-		var is_upgrade_wave = GlobalVariables.wave == 0 or GlobalVariables.wave % 5 == 0
-		if is_upgrade_wave and not upgrading:
-			upgrades.show()
-			upgrading = true
-			Engine.time_scale = 0
-		elif not is_upgrade_wave:
-			upgrading = false
-
-
-func toggle_pause() -> void:
-	paused = !paused
-	pause_menu.visible = paused
-	Engine.time_scale = 0 if paused else 1
 
 
 func _on_timer_timeout() -> void:
-	if not wave_spawning:
-		return
 	GlobalVariables.wave += 1
-	GlobalVariables.enemiesLeft = GlobalVariables.wave
+
+	if GlobalVariables.wave % 5 == 0 and GlobalVariables.wave % 10 != 0:
+		upgrades.show()
+		Engine.time_scale = 0
+		upgrading = true
+		wave_spawning = false
+		return
+
+	_start_wave()
+
+
+func finish_upgrade() -> void:
+	upgrades.hide()
+	Engine.time_scale = 1
+	upgrading = false
+	_start_wave()
+
+
+func _start_wave() -> void:
+	wave_spawning = true
 	orcs_spawned_this_wave = 0
 
 	if GlobalVariables.wave % HEART_SPAWN_INTERVAL == 0:
 		_spawn_heart()
 
-	for i in GlobalVariables.wave:
-		spawn_enemy(randi() % spawn_points.size())
+	spawn_wave(GlobalVariables.wave)
 	wave_spawning = false
 
 
+func spawn_wave(amount: int) -> void:
+	var is_mino_wave = false
+	if GlobalVariables.wave % 10 == 0 and GlobalVariables.wave <= 1:
+		is_mino_wave = true
+		
+	var count: int = 1 if is_mino_wave else amount
+	GlobalVariables.enemiesLeft = count
+
+	for i in count:
+		spawn_enemy(randi() % spawn_points.size(), is_mino_wave)
+
+
 func _spawn_heart() -> void:
-	var heart: Node2D = HEART.instantiate()
+	var heart = HEART.instantiate()
 	heart.global_position = spawn_points[randi() % spawn_points.size()].global_position
 	add_child(heart)
 
 
-func spawn_enemy(spawn_index: int) -> void:
+func spawn_enemy(spawn_index: int, is_endling_wave: bool) -> void:
 	var enemy: Node2D
-	var random = 1
 
-	if GlobalVariables.wave >= 5:
-		random = randi() % 3
-	else:
-		random = randi() % 2
-
-	if random == 0:
-		enemy = GHOST.instantiate()
-	elif random == 1:
-		enemy = SKELETON.instantiate()
-	elif random == 2:
-		if GlobalVariables.wave >= ORC_LIMIT_WAVE or orcs_spawned_this_wave < MAX_ORCS_EARLY_GAME:
-			enemy = ORC.instantiate()
-			orcs_spawned_this_wave += 1
-		else:
+	if is_endling_wave:
+		enemy = MINOTAURUS.instantiate()
+	elif GlobalVariables.wave >= 5:
+		var random: int = randi() % 3
+		if random == 0:
+			enemy = GHOST.instantiate()
+		elif random == 1:
 			enemy = SKELETON.instantiate()
-
-	add_child(enemy)
-	enemy.global_position = spawn_points[spawn_index].global_position
-	
-	if GlobalVariables.wave >= 5:
-		random = randi() % 3
+		else:
+			if orcs_spawned_this_wave < 4:
+				enemy = ORC.instantiate()
+				orcs_spawned_this_wave += 1
+			else:
+				enemy = SKELETON.instantiate()
 	else:
-		random = randi() % 2
-	if random == 0:
-		enemy = GHOST.instantiate()
-	elif random == 1:
-		enemy = SKELETON.instantiate()
-	elif random == 2:
-		enemy = ORC.instantiate()
-		
-	
+		enemy = GHOST.instantiate() if randi() % 2 == 0 else SKELETON.instantiate()
+
 	add_child(enemy)
 	enemy.global_position = spawn_points[spawn_index].global_position

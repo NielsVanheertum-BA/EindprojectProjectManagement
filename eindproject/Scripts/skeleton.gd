@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 const ATTACK_HIT_DELAY := 0.2
-
 var speed := randf_range(100.0, 200.0)
 var is_attacking := false
 var attacking_side := ""
@@ -13,24 +12,25 @@ var attacking_side := ""
 @onready var attack_right: Area2D = $AttackRight
 @onready var attack_left: Area2D = $AttackLeft
 
+var player_in_range := false
+var skeletonHurt = false
+
+
+func _ready() -> void:
+	skeleton_range.area_entered.connect(_on_range_area_entered)
+	skeleton_range.area_exited.connect(_on_range_area_exited)
+
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	if GlobalVariables.skeletonIsHurt or (is_attacking and is_on_floor()):
+	if skeletonHurt or (is_attacking and is_on_floor()):
 		velocity.x = 0
 		move_and_slide()
 		return
 
-	# Detect player in range
-	var player_detected := false
-	for area in skeleton_range.get_overlapping_areas():
-		if area.has_method("detect"):
-			player_detected = true
-			break
-
-	if player_detected:
+	if player_in_range:
 		animated_sprite.play("run")
 		animated_sprite.flip_h = position.x < player.global_position.x
 		velocity.x = position.direction_to(player.global_position).x * speed
@@ -39,6 +39,16 @@ func _physics_process(delta: float) -> void:
 		animated_sprite.play("idle")
 
 	move_and_slide()
+
+
+func _on_range_area_entered(area: Area2D) -> void:
+	if area.has_method("detect"):
+		player_in_range = true
+
+
+func _on_range_area_exited(area: Area2D) -> void:
+	if area.has_method("detect"):
+		player_in_range = false
 
 
 func _get_attack_area() -> Area2D:
@@ -64,8 +74,6 @@ func _on_timer_timeout() -> void:
 	velocity.x = 0
 
 	var attack_area := _get_attack_area()
-
-	# Only attack if player is still in range
 	if not attack_area.get_overlapping_areas().any(func(a): return a.has_method("detect")):
 		is_attacking = false
 		return
@@ -73,8 +81,7 @@ func _on_timer_timeout() -> void:
 	animated_sprite.play("attack")
 	await get_tree().create_timer(ATTACK_HIT_DELAY).timeout
 
-	# Re-check at hit frame
-	for body in _get_attack_area().get_overlapping_areas():
+	for body in attack_area.get_overlapping_areas():
 		if body.has_method("detect"):
 			GlobalVariables.playerCurrentHealth -= GlobalVariables.skeletonDamage
 

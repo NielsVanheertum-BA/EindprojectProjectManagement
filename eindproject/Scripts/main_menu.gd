@@ -15,6 +15,11 @@ func _ready() -> void:
 	_update_records()
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_VISIBILITY_CHANGED and is_visible_in_tree() and is_node_ready():
+		_update_records()
+
+
 func _update_records() -> void:
 	wave_record.text = "Wave Record: " + str(GlobalVariables.waveRecord)
 	kill_record.text = "Kills Record: " + str(GlobalVariables.killRecord)

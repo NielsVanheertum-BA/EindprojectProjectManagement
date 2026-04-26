@@ -3,33 +3,35 @@ extends Area2D
 const BASE_HEALTH := 50
 
 @onready var animated_sprite: AnimatedSprite2D = $"../AnimatedSprite2D"
+@onready var skeleton: CharacterBody2D = $".."
+
 
 var health := BASE_HEALTH
 
 
 func take_damage() -> void:
-	GlobalVariables.skeletonIsHurt = true
+	skeleton.skeletonHurt = true
 	health -= GlobalVariables.sword_damage
-
 	animated_sprite.play("hurt")
 	await animated_sprite.animation_finished
 
 	if health <= 0:
-		spawn_hit_effect(animated_sprite.global_position)
-		get_parent().queue_free()
+		var texture := animated_sprite.sprite_frames.get_frame_texture("hurt", 0)
 		GlobalVariables.enemiesLeft -= 1
 		GlobalVariables.kill += 1
+		get_parent().queue_free()
+		spawn_hit_effect(animated_sprite.global_position, texture)
+		return
 
-	GlobalVariables.skeletonIsHurt = false
+	skeleton.skeletonHurt = false
 
 
-func spawn_hit_effect(pos: Vector2) -> void:
+func spawn_hit_effect(pos: Vector2, texture: Texture2D) -> void:
 	var effect := Sprite2D.new()
-	effect.texture = animated_sprite.sprite_frames.get_frame_texture("hurt", 0)
+	effect.texture = texture
 	effect.global_position = pos
 	effect.modulate = Color(1, 0, 0, 0.7)
 	get_tree().current_scene.add_child(effect)
-
 	var tween := effect.create_tween()
 	tween.set_parallel(true)
 	tween.tween_property(effect, "modulate:a", 0.0, 0.3)

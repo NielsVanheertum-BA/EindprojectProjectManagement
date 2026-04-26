@@ -54,7 +54,10 @@ func _physics_process(delta: float) -> void:
 		else:
 			animated_sprite.play("jump")
 
-	velocity.x = direction * SPEED if direction else move_toward(velocity.x, 0, SPEED)
+	if direction:
+		velocity.x = direction * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
 
@@ -74,13 +77,15 @@ func die() -> void:
 	if is_dead:
 		return
 	is_dead = true
+	is_attacking = false
+	which_attack = 1
 	GlobalVariables.playerAlive = false
 	Engine.time_scale = 0.5
 	set_physics_process(false)
+	_set_attack_areas(false)
 	animated_sprite.play("death")
 	await animated_sprite.animation_finished
 
-	# Reset global stats
 	GlobalVariables.playerMaxHealth = GlobalVariables.playerBaseMaxHealth
 	GlobalVariables.ghostDamage = GlobalVariables.ghostBaseDamage
 	GlobalVariables.skeletonDamage = GlobalVariables.skeletonBaseDamage
@@ -88,7 +93,6 @@ func die() -> void:
 	GlobalVariables.playerCurrentHealth = GlobalVariables.playerMaxHealth
 	GlobalVariables.enemiesLeft = 0
 
-	# Update records
 	GlobalVariables.killRecord = maxi(GlobalVariables.killRecord, GlobalVariables.kill)
 	GlobalVariables.waveRecord = maxi(GlobalVariables.waveRecord, GlobalVariables.wave)
 	GlobalVariables.wave = 0
@@ -102,7 +106,6 @@ func attack() -> void:
 	is_attacking = true
 	_set_attack_areas(true)
 
-	# Snapshot direction and vertical input at moment of attack
 	var attack_direction := last_direction
 	var attack_up := Input.is_action_pressed("up")
 	var attack_down := Input.is_action_pressed("down")
@@ -122,7 +125,6 @@ func attack() -> void:
 
 	await get_tree().create_timer(ATTACK_HIT_DELAY).timeout
 
-	# Use snapshotted direction, not current input
 	var enemies: Array
 	if attack_up:
 		enemies = area_up.get_overlapping_areas()
@@ -145,7 +147,10 @@ func attack() -> void:
 
 func spawn_hit_effect(pos: Vector2) -> void:
 	var effect := Sprite2D.new()
-	effect.texture = animated_sprite.sprite_frames.get_frame_texture("idle", 0)
+	var current_frame := animated_sprite.sprite_frames.get_frame_texture(
+		animated_sprite.animation, animated_sprite.frame
+	)
+	effect.texture = current_frame
 	effect.global_position = pos
 	effect.modulate = Color(1, 0, 0, 0.7)
 	get_parent().add_child(effect)

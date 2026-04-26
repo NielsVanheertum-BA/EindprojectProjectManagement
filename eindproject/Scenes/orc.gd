@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
-const ATTACK_HIT_DELAY := 3
-
+const ATTACK_HIT_DELAY := 0.3
 var speed := randf_range(60.0, 90.0)
 var is_attacking := false
 var attacking_side := ""
+var orcHurt = false
 
 @onready var player: CharacterBody2D = $"../Player"
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -18,12 +18,11 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	if GlobalVariables.orcIsHurt or (is_attacking and is_on_floor()):
+	if orcHurt or(is_attacking and is_on_floor()):
 		velocity.x = 0
 		move_and_slide()
 		return
 
-	# Detect player in range
 	var player_detected := false
 	for area in orc_range.get_overlapping_areas():
 		if area.has_method("detect"):
@@ -64,7 +63,6 @@ func _on_timer_timeout() -> void:
 	velocity.x = 0
 
 	var attack_area := _get_attack_area()
-
 	if not attack_area.get_overlapping_areas().any(func(a): return a.has_method("detect")):
 		is_attacking = false
 		return
@@ -72,7 +70,7 @@ func _on_timer_timeout() -> void:
 	animated_sprite.play("attack")
 	await get_tree().create_timer(ATTACK_HIT_DELAY).timeout
 
-	for body in _get_attack_area().get_overlapping_areas():
+	for body in attack_area.get_overlapping_areas():
 		if body.has_method("detect"):
 			GlobalVariables.playerCurrentHealth -= GlobalVariables.orcDamage
 

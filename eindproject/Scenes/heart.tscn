@@ -43,16 +43,21 @@ animations = [{
 radius = 42.0119
 
 [node name="heart" type="Node2D"]
+position = Vector2(4.9999995, -10.000003)
 scale = Vector2(0.57921976, 0.5836674)
 script = ExtResource("1_jgxw8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-10.358763, -18.846352)
+scale = Vector2(0.85068727, 0.7409334)
 sprite_frames = SubResource("SpriteFrames_atbr1")
 animation = &"spin"
-frame_progress = 0.09468333
+frame_progress = 0.9945263
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1, -9)
+position = Vector2(-10.358762, -25.699572)
 shape = SubResource("CircleShape2D_rhnby")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
